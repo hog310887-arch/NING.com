@@ -1,0 +1,6 @@
+{
+  "name": "Design Portfolio",
+  "description": "A high-end, minimalist, multilingual design portfolio website with smooth interactive dark/light transitions and futuristic aesthetics.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
