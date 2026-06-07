@@ -22,13 +22,7 @@ export default function Contact({ lang }: ContactProps) {
     }
   });
 
-  const [phoneNumber] = useState<string>(() => {
-    try {
-      return localStorage.getItem('contact-phone-number') || '138-0000-0000';
-    } catch {
-      return '138-0000-0000';
-    }
-  });
+  const [phoneNumber] = useState<string>('15365802003/18061281297');
 
   const [isWeChatQrZoomed, setIsWeChatQrZoomed] = useState(false);
 
@@ -110,7 +104,7 @@ export default function Contact({ lang }: ContactProps) {
                   <div className="flex items-center gap-3">
                     <MessageSquare size={16} className="text-white/40" />
                     <span className="font-mono text-[10px] tracking-wider text-neutral-400 uppercase">
-                      {lang === 'zh' ? '微信联系' : 'WECHAT CONTACT'}
+                      {lang === 'zh' ? '微信联系：15365802003或下图扫码添加' : 'WeChat Contact: 15365802003 or Scan Code Below'}
                     </span>
                   </div>
                 </div>

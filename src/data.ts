@@ -9,8 +9,8 @@ export const TRANSLATIONS = {
     
     heroTitle: 'DESIGNING SYSTEMIC CURIOSITY',
     heroSub: 'KANGNING SUN PERSONAL WEBSITE',
-    heroStatus: 'STATUS: ACTIVE INQUIRY',
-    heroLocation: 'LOC: NANJING / SUZHOU / SHANGHAI / ZHEJIANG / XUZHOU',
+    heroStatus: 'STATUS: FRESH GRADUATE',
+    heroLocation: 'INTENDED: NANJING / SUZHOU / SHANGHAI / HANGZHOU / NINGBO / XUZHOU',
     heroTime: 'SYS_TIME: ',
     heroRole: 'KANGNING SUN',
     
@@ -66,8 +66,8 @@ export const TRANSLATIONS = {
     
     heroTitle: '设计系统性好奇心',
     heroSub: '孙康宁个人网站',
-    heroStatus: '当前状态：接受全新预约',
-    heroLocation: '地理坐标：南京/苏州/上海/浙江/徐州',
+    heroStatus: '当前状态：应届生',
+    heroLocation: '意向城市：南京、苏州、上海、杭州、宁波、徐州（江浙沪）',
     heroTime: '系统时间：',
     heroRole: '孙康宁',
     
