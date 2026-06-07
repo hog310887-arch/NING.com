@@ -266,6 +266,16 @@ export default function Cover({ lang }: CoverProps) {
             >
               <span>{t.navAbout}</span>
             </button>
+            <button 
+              id="hero-tertiary-cta"
+              onClick={() => {
+                const cSection = document.getElementById('contact-section');
+                if (cSection) cSection.scrollIntoView({ behavior: 'smooth' });
+              }}
+              className="flex items-center gap-2 border border-white/20 hover:border-white hover:bg-white/5 text-white font-mono text-[11px] tracking-[0.25em] py-4 px-8 uppercase transition-all duration-300 cursor-pointer"
+            >
+              <span>{t.navContact}</span>
+            </button>
           </div>
         </div>
 

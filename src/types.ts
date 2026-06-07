@@ -17,6 +17,7 @@ export interface Project {
   client: string;
   overview: { en: string; zh: string };
   imageUrl: string;
+  videoUrl?: string;
   details: ProjectDetails;
 }
 

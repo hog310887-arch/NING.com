@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Eye, X, ArrowUpRight, Cpu, Compass, LayoutGrid, Layers, Timer } from 'lucide-react';
+import { Eye, X, ArrowUpRight, Cpu, Compass, LayoutGrid, Layers, Timer, Play, Pause } from 'lucide-react';
 import { Project, Language } from '../types';
 import { PROJECTS, TRANSLATIONS } from '../data';
 
@@ -12,11 +12,27 @@ export default function Works({ lang }: WorksProps) {
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
   const [activeProject, setActiveProject] = useState<Project | null>(null);
   const [layoutMode, setLayoutMode] = useState<'grid' | 'list'>('grid');
-  const [brokenVideos, setBrokenVideos] = useState<Record<string, boolean>>({});
   const t = TRANSLATIONS[lang];
 
-  const handleVideoError = (projectId: string) => {
-    setBrokenVideos(prev => ({ ...prev, [projectId]: true }));
+  const inspectVideoRef = useRef<HTMLVideoElement | null>(null);
+  const [isInspectPlaying, setIsInspectPlaying] = useState(false);
+
+  useEffect(() => {
+    setIsInspectPlaying(false);
+  }, [activeProject]);
+
+  const toggleInspectPlay = () => {
+    if (inspectVideoRef.current) {
+      if (isInspectPlaying) {
+        inspectVideoRef.current.pause();
+        setIsInspectPlaying(false);
+      } else {
+        inspectVideoRef.current.play().catch((err) => {
+          console.error("Video playback failed", err);
+        });
+        setIsInspectPlaying(true);
+      }
+    }
   };
 
   const filteredProjects = selectedCategory === 'all'
@@ -129,16 +145,14 @@ export default function Works({ lang }: WorksProps) {
               >
                 {/* Image panel with zoom shader effect */}
                 <div className="relative aspect-[16/10] overflow-hidden bg-neutral-900 border-b border-white/10">
-                  {project.id === 'chronos' && !brokenVideos[project.id] ? (
+                  {project.videoUrl ? (
                     <video
-                      src="/src/assets/images/001.mp4"
+                      src={project.videoUrl}
                       id={`project-card-video-${project.id}`}
                       autoPlay
                       loop
                       muted
                       playsInline
-                      controls={false}
-                      onError={() => handleVideoError(project.id)}
                       className="w-full h-full object-cover grayscale brightness-90 group-hover:grayscale-0 group-hover:scale-105 group-hover:brightness-100 transition-all duration-700 ease-out"
                     />
                   ) : (
@@ -286,19 +300,36 @@ export default function Works({ lang }: WorksProps) {
                 </p>
 
                 {/* Big high-contrast preview frame */}
-                <div className="mt-12 aspect-[16/9] bg-neutral-900 border border-white/10 overflow-hidden relative">
-                  {activeProject.id === 'chronos' && !brokenVideos[activeProject.id] ? (
-                    <video
-                      src="/src/assets/images/001.mp4"
-                      id={`project-inspect-video-${activeProject.id}`}
-                      autoPlay
-                      loop
-                      muted
-                      playsInline
-                      controls={false}
-                      onError={() => handleVideoError(activeProject.id)}
-                      className="w-full h-full object-cover grayscale brightness-95 ring-0 outline-none"
-                    />
+                <div className="mt-12 max-w-2xl bg-neutral-900 border border-white/10 overflow-hidden relative">
+                  {activeProject.videoUrl ? (
+                    <>
+                      <video
+                        ref={inspectVideoRef}
+                        src={activeProject.videoUrl}
+                        id={`project-inspect-video-${activeProject.id}`}
+                        loop
+                        playsInline
+                        className="w-full h-auto block brightness-95 ring-0 outline-none"
+                      />
+                      <button
+                        id="btn-inspect-video-play-toggle"
+                        onClick={toggleInspectPlay}
+                        className="absolute bottom-6 left-6 z-30 bg-black/80 border border-white/20 hover:border-white hover:bg-black text-white px-4 py-2.5 flex items-center justify-center gap-2.5 transition-all text-xs font-mono tracking-wider cursor-pointer rounded-sm"
+                        title={isInspectPlaying ? "Pause" : "Play"}
+                      >
+                        {isInspectPlaying ? (
+                          <>
+                            <Pause size={13} className="fill-white" />
+                            <span>{lang === 'zh' ? '暂停 // PAUSE' : 'PAUSE'}</span>
+                          </>
+                        ) : (
+                          <>
+                            <Play size={13} className="fill-white ml-0.5" />
+                            <span>{lang === 'zh' ? '播放 // PLAY' : 'PLAY'}</span>
+                          </>
+                        )}
+                      </button>
+                    </>
                   ) : (
                     <img
                       src={activeProject.imageUrl}
@@ -306,7 +337,7 @@ export default function Works({ lang }: WorksProps) {
                       id={`project-inspect-image-${activeProject.id}`}
                       referrerPolicy="no-referrer"
                       onError={(e) => handleImageError(e, activeProject.id)}
-                      className="w-full h-full object-cover grayscale brightness-95"
+                      className="w-full h-auto block grayscale brightness-95"
                     />
                   )}
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent pointer-events-none"></div>

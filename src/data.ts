@@ -12,7 +12,7 @@ export const TRANSLATIONS = {
     heroStatus: 'STATUS: ACTIVE INQUIRY',
     heroLocation: 'LOC: NANJING / SUZHOU / SHANGHAI / ZHEJIANG / XUZHOU',
     heroTime: 'SYS_TIME: ',
-    heroRole: 'COGNITIVE DESIGN FOR DIGITAL HUMANITY',
+    heroRole: 'KANGNING SUN',
     
     filterAll: 'ALL WORK',
     filterUiUx: '3D DYNAMIC DESIGN',
@@ -32,9 +32,11 @@ export const TRANSLATIONS = {
     closeDetail: 'BACK',
     exploreMore: 'EXPLORE ARCHIVE',
 
-    aboutTitle: 'DECODING COGNITION / ENCODING FORM',
-    aboutBio1: 'I operate at the friction point between radical minimalism and complex engineering logic. As a designer-technologist, I believe the best interfaces are invisible infrastructures: silent, precise, and completely natural to human perception.',
-    aboutBio2: 'With over 8 years of practice spanning Tokyo, SFO, and digital-ether space, I custom-craft interaction systems, geometric brands, and sensory code. My objective is simple: reduce friction to absolute zero while magnifying the visceral joy of digital interaction.',
+    aboutTitle: 'LIMITLESS CREATIVITY / PROACTIVE DISPOSITION',
+    aboutBio1: 'I am a recent graduate in Digital Media Art Design. As a young creator passionate about design, I am always curious about new things and eager to express my creativity and ideas through visual design.',
+    aboutBio2: 'During my studies, I systematically learned professional courses such as visual design, motion poster design, brand design, and new media visuals. I am proficient in design software like Photoshop, Illustrator, and After Effects, and can independently complete creative planning, visual design, and outputs. In my spare time, I have also self-taught various AI image/video generation tools such as OpenAI, Midjourney, Gemini AI Studio, Jimeng, and Keling, which can be flexibly applied to work. My graduation project focused on wasteland-style dynamic poster design, which continuously honed my design thinking, aesthetic sense, and execution capabilities.',
+    aboutBio3: 'In life, I am outgoing, positive, and optimistic. I enjoy communicating with others and relish the collision of inspiration brought by teamwork. Facing new tasks and challenges, I am proactive in learning and courageous in trying to break out of comfort zones. I believe design is not only visual expression but also a medium of communication, and I hope to inject fresh energy into every project with my youthful perspective, rich creativity, and dedicated attitude.',
+    aboutBio4: 'Although I am a newcomer to the professional world, I am full of passion for design and look forward to continuous growth in my future career, aspiring to become a designer with both creativity and high execution capabilities.',
     
     expTitle: 'COMMERCIAL PROGRESSION',
     skillsTitle: 'TACTICAL MATRIX',
@@ -67,7 +69,7 @@ export const TRANSLATIONS = {
     heroStatus: '当前状态：接受全新预约',
     heroLocation: '地理坐标：南京/苏州/上海/浙江/徐州',
     heroTime: '系统时间：',
-    heroRole: '面向数字生命的人性化设计',
+    heroRole: '孙康宁',
     
     filterAll: '全部项目',
     filterUiUx: '3D动态设计',
@@ -87,9 +89,11 @@ export const TRANSLATIONS = {
     closeDetail: '返回',
     exploreMore: '浏览归档纪录',
 
-    aboutTitle: '破译认知 / 编码形体',
-    aboutBio1: '我致力于在极致极简主义与复杂工程逻辑之间寻求摩擦力。作为一名设计师兼技术专家，我相信最顶级的界面是无形的底层基建：静默、精确、且完美融入人类感知器官。',
-    aboutBio2: '在东京、旧金山和数字虚拟空间积累了8年以上的商业实践，我定制开发交互算法、几何美学品牌与重感官代码。我的目的极其纯粹：将认知阻力降为绝对零度，并成倍放大数字交互的最本质快感。',
+    aboutTitle: '创意无限、积极进取',
+    aboutBio1: '我是一名数字媒体艺术设计专业应届毕业生。作为一名热爱设计的年轻创作者，我始终对新鲜事物保持好奇心，也乐于把自己的创意和想法通过视觉设计表达出来。',
+    aboutBio2: '在校期间，我系统学习了视觉设计、动态海报设计、品牌设计、新媒体视觉等专业课程，熟练掌握Photoshop、Illustrator、After Effects等设计软件，能够独立完成创意策划、视觉设计与作品输出。在空闲时间，我也自学了很多ai图像/视频生成软件，比如open AI、midjourney、gemini ai stuido、即梦、可灵等。可以灵活运用于工作。毕业设计聚焦于废土风格动态海报设计，在项目实践中不断提升了自己的设计思维、审美能力和执行能力。',
+    aboutBio3: '生活中的我性格开朗、积极乐观，喜欢与人交流，也享受团队协作带来的灵感碰撞。面对新的任务和挑战，我愿意主动学习、勇于尝试，不断突破自己的舒适圈。我相信设计不仅是视觉表达，更是一种沟通方式，而我希望用年轻的视角、丰富的创意和认真的态度，为每一个项目注入新的活力。',
+    aboutBio4: '虽然我是一名职场新人，但我对设计充满热情，也期待在未来的工作中不断成长，成为一名兼具创意与执行力的设计师。',
     
     expTitle: '商业进化轨迹',
     skillsTitle: '核心技能矩阵',
@@ -117,17 +121,18 @@ export const PROJECTS: Project[] = [
   {
     id: 'chronos',
     title: {
-      en: 'Chronos Quantum OS Prototype',
-      zh: 'Chronos 量子系统用户界面原型',
+      en: 'Spiny Garden',
+      zh: '刺骨花园',
     },
     category: 'uiux',
-    tag: { en: 'OS Design & Spatial UI', zh: '系统设计与空间计算' },
+    tag: { en: '3D Motion Design', zh: '3D动态设计' },
     year: '2026',
     client: 'Chronos Lab Inc.',
     imageUrl: '/src/assets/images/regenerated_image_1780590527988.png',
+    videoUrl: 'https://videotourl.com/videos/1780758599466-ed5e9bfa-3df8-4a0e-a606-ba28165a8d54.mp4',
     overview: {
-      en: 'A zero-loading, hyper-spatial desktop interface designed for upcoming quantum computing terminals, integrating multi-dimensional data visualization canvases and real-time process control maps.',
-      zh: '专为下一代量子计算终端设计的零耗时、高空间感桌面人机交互界面，深度整合多维数据可视化画布与实时计算进程管控地图。',
+      en: "Presents a futuristic and surreal 'Cyber Nature' style, cleverly blending icy, crystal-clear textures with organic plant growth animations to spark a quiet, dreamlike visual experience.",
+      zh: '呈现了一种未来感与超现实色彩的“赛博自然”风格，巧妙地运用冰冷剔透的水晶材质与有机的植物生长动画，碰撞出一种静谧且梦幻的视觉体验。',
     },
     details: {
       challenge: {
@@ -146,17 +151,18 @@ export const PROJECTS: Project[] = [
   {
     id: 'aeon-branding',
     title: {
-      en: 'Aeon Labs Parametric Systems',
-      zh: 'Aeon Labs 极简参数化视觉识别系统',
+      en: 'Innocence: Out of Control Frame Rate',
+      zh: '童真·帧频失控',
     },
     category: 'brand',
-    tag: { en: 'Generative Visual Identity', zh: '生成式品牌视觉体系' },
+    tag: { en: 'AE Effects Video', zh: 'ae特效视频' },
     year: '2025',
     client: 'Aeon Labs Corp.',
     imageUrl: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1200&auto=format&fit=crop',
+    videoUrl: 'https://videotourl.com/videos/1780812829435-719b0088-f6bf-443d-bb8a-7271b86cf7a7.mp4',
     overview: {
-      en: 'A fully responsive fluid branding system generated entirely via SVG equations. Algorithms mutate the logo shape based on server queries per second, reflecting the brand\'s digital metabolism.',
-      zh: '一套由SVG方程实时编译、完全具备响应式流体特征的品牌识别系统。标志图形随每秒服务器请求吞吐量的改变而动态裂变，真实映射企业的数据新陈代谢。',
+      en: 'Using aggressive time remapping, ghosting, and frame-dropping/tearing of 3D cartoon assets in AE, a concrete animation is deconstructed into a grotesque, pulsating, and visually striking dynamic video sequence.',
+      zh: '通过在AE中对3D卡通素材进行暴力的时间重映射、残影与抽帧撕裂处理，将具体的动画解构为一个怪诞、舞动且富于视觉冲击力的动态影像。',
     },
     details: {
       challenge: {
@@ -175,17 +181,18 @@ export const PROJECTS: Project[] = [
   {
     id: 'aphelion-visual',
     title: {
-      en: 'Aphelion 3D Spatial Audio Station',
-      zh: 'Aphelion 3D 空间立体音频调度台',
+      en: 'Little Witch Vegetarian Tripe Ad Video',
+      zh: '小魔女素毛肚广告拍摄',
     },
     category: 'motion',
-    tag: { en: 'Geometric 3D Rendering', zh: '几何三维材质与动态合成' },
+    tag: { en: 'Short Video Ads', zh: '短视频广告' },
     year: '2025',
     client: 'Aphelion Sound Technologies',
     imageUrl: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=1200&auto=format&fit=crop',
+    videoUrl: 'https://videotourl.com/videos/1780812605728-421a55c4-6539-4dc4-bed1-3e5a66b58a0d.mp4',
     overview: {
-      en: 'An interactive virtual synthesizer workspace designed to map structural coordinates of physical soundwaves in ultra-minimal dark mode settings.',
-      zh: '专为高维音频合成定制的立体虚拟调度台。利用极简黑色哑光材质、配合精细高斯模糊，在三维坐标轴上对声波在现实建筑内的反射路径进行解构重组。',
+      en: 'Responsible for photography, editing, color grading, packaging, and post-production.',
+      zh: '负责摄影，剪辑，调色，包装，后期等',
     },
     details: {
       challenge: {
@@ -204,17 +211,18 @@ export const PROJECTS: Project[] = [
   {
     id: 'zenith-hologram',
     title: {
-      en: 'Zenith Volumetric Holographic UI',
-      zh: 'Zenith 真实全息悬浮折射控制台',
+      en: 'Spiny Blossoms',
+      zh: '刺骨生花',
     },
     category: 'uiux',
-    tag: { en: 'Holographic & Spatial UX', zh: '全息光折射系统设计' },
+    tag: { en: '3D Motion Design', zh: '3D动态设计' },
     year: '2026',
     client: 'Zenith Space Instruments',
     imageUrl: '/src/assets/images/regenerated_image_1780590393689.png',
+    videoUrl: 'https://videotourl.com/videos/1780762194484-e0bc8959-5b74-410f-9d5c-a3a7abdc7e30.mp4',
     overview: {
-      en: 'An ultra-fine projection-based volumetric navigation dash featuring real-time light refraction simulations and tactile feedback fields for deep-space telemetry.',
-      zh: '基于光流体微结构投影技术的小型化座舱仪表系统。通过动态光线折射模拟计算与浮动感知三维网格，实现全息图组的高保真多视角即时渲染。',
+      en: 'The video presents an ultimate wasteland aesthetic, using cracked scorched earth, bone-like mutated plants, and mottled rusted typography to create a desolate, ruined yet struggling end-of-world atmosphere.',
+      zh: '该视频呈现了一种极致的废土美，通过干裂的焦土、白骨般的异化植物与斑驳的生锈的字体，营造出一种荒凉、破败却又在绝境中挣扎生长的末日氛围',
     },
     details: {
       challenge: {
@@ -233,17 +241,18 @@ export const PROJECTS: Project[] = [
   {
     id: 'nova-brand',
     title: {
-      en: 'Nova Fluid Dynamic Brand Identity',
-      zh: 'Nova 粒子流体态动态品牌识别系统',
+      en: 'Dawn: Fantasy City Palaces',
+      zh: '破晓·幻城宫阙',
     },
     category: 'brand',
-    tag: { en: 'Fluid Dynamics & Kinetic Branding', zh: '流体动力学与动态影像系统' },
+    tag: { en: 'AE Effects Video', zh: 'ae特效视频' },
     year: '2026',
     client: 'Nova Tech Entertainment',
     imageUrl: 'https://images.unsplash.com/photo-1541701494587-cb58502866ab?q=80&w=1200&auto=format&fit=crop',
+    videoUrl: 'https://videotourl.com/videos/1780812933951-a901346f-c302-4b2f-9e16-ede3a1cc3401.mp4',
     overview: {
-      en: 'An algorithmic, generative promotional system built with AE expressions and particle simulators, producing ultra-fluid brand motion videos.',
-      zh: '基于重力流体力学、超轻量粒子自相似渲染引擎的广告视频。利用高级运动表达式驱动，塑造具备 high-tech 奢华调性的流线型品牌感官影像。',
+      en: 'Presents a visual style combining Eastern fantasy and modern lighting accents, cleverly using space mask transitions and high-intensity volumetric lighting to transform calm, heavy traditional red-walled ancient architecture into highly impactful, surrealistic dynamic images.',
+      zh: '呈现了一种东方奇幻与现代光影点缀组成的视觉风格，巧妙运用空间遮罩的推拉与高强度的体积光照明爆发，将沉稳厚重的传统红墙古建转化为瞬息冲击力的超现实动态影像。',
     },
     details: {
       challenge: {
@@ -259,49 +268,22 @@ export const PROJECTS: Project[] = [
       metrics: { en: '100% Procedural Flow Animation', zh: '100% 过程式算法衍生流动质感' },
     },
   },
-  {
-    id: 'singularity-ads',
-    title: {
-      en: 'Singularity Spatial Audio promos',
-      zh: 'Singularity 超立体粒子微广告视频',
-    },
-    category: 'motion',
-    tag: { en: 'Cinematic Audio-Reactive Promos', zh: '短视频广告与音画联动' },
-    year: '2025',
-    client: 'Singularity Acoustics',
-    imageUrl: 'https://images.unsplash.com/photo-1618005198143-d3667c4ee33c?q=80&w=1200&auto=format&fit=crop',
-    overview: {
-      en: 'A high-impact cinematic promotional short-form campaign featuring glass-shattering dynamics perfectly synchronized to tactile sub-bass design.',
-      zh: '为高纯度声学硬件品牌定制的超高精度动态微视频。运用刚体碎裂力学与无光泽黑色哑光材质，将看不见的超重低音共振轨迹具象化为空间波动。',
-    },
-    details: {
-      challenge: {
-        en: 'Synchronizing micro-animations of chaotic material fracturing precisely on frame boundaries of short-form audio clips without manual manual keyframing.',
-        zh: '对瞬态产生的千百个高维碎屑颗粒，在极短视频帧序内实现与声学波形瞬态能量极度吻合的精准驱动，消除大工业生产环境下的手工打帧延迟。',
-      },
-      solution: {
-        en: 'Offloaded calculations to audio-amplitude drivers. We wrote an automated parser that scales velocity thresholds based on decibel peaks, guaranteeing pixel-perfect sync.',
-        zh: '编写了高频声音振幅参数发生器，将音频分频后的瞬态响应直接作用于物理破碎场的约束强度和膨胀速度，实现了声画音准级别的绝对对齐。',
-      },
-      duration: '3 Months',
-      role: { en: 'Systemic Motion Tech Artist', zh: '三维碎裂系统美术与动态程序员' },
-      metrics: { en: 'Frame-Perfect Amplitude Auditing', zh: '分贝振幅与碰撞动画帧级无死角同步' },
-    },
-  },
+
   {
     id: 'prism-posters',
     title: {
-      en: 'Prism Topological Kinetic Poster Series',
-      zh: 'Prism 拓扑结构动力学极简动态海报',
+      en: 'Roaming Echoes',
+      zh: '遗音漫游',
     },
     category: 'code',
-    tag: { en: 'Dynamic Vector Typography', zh: '动力学等宽排版海报' },
+    tag: { en: 'Dynamic Poster', zh: '动态海报' },
     year: '2025',
     client: 'Experimental Typography Biennale',
     imageUrl: 'https://images.unsplash.com/photo-1502239608882-93b729c6af43?q=80&w=1200&auto=format&fit=crop',
+    videoUrl: 'https://videotourl.com/videos/1780808363485-31d829cb-ab99-4059-844c-ee4e40153c0c.mp4',
     overview: {
-      en: 'A kinetic, interactive code-based poster collection representing modern typography as a living 3D elastic membrane reacting to user cursor and scroll velocity.',
-      zh: '为先锋创意排版双年展定制的等宽文字动力学海报系列。基于弹性动力学，将字母排版处理为受滚动位移及光标引力拉扯的三维拓扑膜。',
+      en: 'In a wasteland environment, the voice archives of past civilizations play on a loop like glitched time, yet they remain the sole hope of the apocalypse.',
+      zh: '在废土环境下，过去文明的声音存档像时间在循环播放会出现故障，但这是末日唯一的希望',
     },
     details: {
       challenge: {
@@ -320,17 +302,18 @@ export const PROJECTS: Project[] = [
   {
     id: 'elysian-canvas',
     title: {
-      en: 'Elysian Neo-Minimal Desktop Space',
-      zh: 'Elysian 先锋立体空间计算虚拟桌面',
+      en: 'Decaying Energy, Withered Flower',
+      zh: '残能朽花',
     },
     category: 'uiux',
-    tag: { en: 'Spatial Computing Environment', zh: '超精细三维空间算法交互' },
+    tag: { en: '3D Motion Design', zh: '3D动态设计' },
     year: '2026',
     client: 'Elysian Future Reality',
     imageUrl: '/src/assets/images/regenerated_image_1780739720005.png',
+    videoUrl: 'https://videotourl.com/videos/1780764820903-200cb1a3-6021-41ba-ac1d-def7c64c808d.mp4',
     overview: {
-      en: 'An immersive interactive spatial environment exploring multi-layered physics-driven depths, dynamic ambient occlusion, and sterile typography constraints.',
-      zh: '以冷峻的高斯模糊磨砂和物理浮光反射为基底的三维虚拟桌面。通过微弱的自然阴影、精巧的距离层叠，对界面元素进行有秩序的高级感布局。',
+      en: 'An instant transition from cold, polished industrial materials to rusted ruins and rubble-filled wasteland, creating a desolate, fractured visual tension filled with industrial decay.',
+      zh: '从冷峻光洁的工业材质向铁锈斑驳、瓦砾遍地的废墟瞬间转变，营造出一种荒芜、破败且充满工业衰亡感的视觉张力',
     },
     details: {
       challenge: {
@@ -346,49 +329,22 @@ export const PROJECTS: Project[] = [
       metrics: { en: 'Zero GPU Shader Overhead', zh: '实现物理级光感深度却省去 100% 重度着色器负荷' },
     },
   },
-  {
-    id: 'nebula-dynamics',
-    title: {
-      en: 'Nebula Generative Particle Field',
-      zh: 'Nebula 三维星云粒子生成场',
-    },
-    category: 'uiux',
-    tag: { en: '3D Simulation & GLSL Shaders', zh: '三维流体微观粒子交互' },
-    year: '2026',
-    client: 'Interstellar Art Lab',
-    imageUrl: '/src/assets/images/regenerated_image_1780739726126.png',
-    overview: {
-      en: 'A high-fidelity dynamic particle playground mapping gravity attraction vectors in real-time, rendering beautiful recursive color fields inside an interactive space canvas.',
-      zh: '模拟非线性力学与重力场演变的粒子系统。通过多级自适应向量场，把看不见的引力约束解析并动态渲染为高维度星团的膨胀破碎。',
-    },
-    details: {
-      challenge: {
-        en: 'Simulating over 100,000 active gravity-influenced particles smoothly on basic handheld viewports at 60fps without drain.',
-        zh: '在运算资源高度受限的普通移动端上，以 60帧/秒 顺畅运行多达十万个具有独立引力计算的重力粒子，而避免过度发热或卡顿。',
-      },
-      solution: {
-        en: 'Optimized standard vector maths into accelerated GLSL matrix operations, storing positions directly inside GPU textures to eliminate bottleneck CPU-to-GPU memory transfer cycles.',
-        zh: '通过在 WebGL 着色器中使用浮点纹理直接保存粒子瞬时状态，剔除耗时的 CPU 数据交换通道，实现粒子自更新及物理拟真渲染全硬件加速。',
-      },
-      duration: '4 Months',
-      role: { en: 'Principal Creative Technologist', zh: '首席创意技术工程师' },
-      metrics: { en: '120k Particles at Solid 60FPS', zh: '支撑 12万 粒子于标准设备满帧率漫游' },
-    },
-  },
+
   {
     id: 'orion-spheres',
     title: {
-      en: 'Orion Kinetic Glass Sculptures',
-      zh: 'Orion 几何球体动力学互动装置',
+      en: 'Abyssal Swimming Bone',
+      zh: '深渊游骨',
     },
     category: 'uiux',
-    tag: { en: 'Parametric Spatial Simulation', zh: '参数化实体三维建模与动力学' },
+    tag: { en: '3D Motion Design', zh: '3D动态设计' },
     year: '2025',
     client: 'Metropolitan Digital Museum',
     imageUrl: '/src/assets/images/regenerated_image_1780739729923.png',
+    videoUrl: 'https://videotourl.com/videos/1780763453380-fea6a7a9-8320-45f2-aa4c-a75644921f6a.mp4',
     overview: {
-      en: 'A gorgeous algorithmic spatial installation composing real-time refractive glass and moving mechanical structures responding to environmental depth variations.',
-      zh: '由算法自主编排的三维拟物折射交互空间。使纯白磨砂与亮面玻璃物态在外力压迫或拖动下，呈现逼真的动能反弹、惯性滑动与漫反射表面张力。',
+      en: 'Presents a style blending deep-sea claustrophobia and bionic machinery, creating a dynamic homepage with cold-shining metallic fishbones.',
+      zh: '表演了一种深海幽闭与仿生机械融合的风格，将泛着冷光的金属鱼骨动态首页',
     },
     details: {
       challenge: {
@@ -407,17 +363,18 @@ export const PROJECTS: Project[] = [
   {
     id: 'fractal-matrix',
     title: {
-      en: 'Fractal Dimension Spatial Gateway',
-      zh: 'Fractal 高维自相似空间分形格栅',
+      en: 'Wasteland Spectral Soul',
+      zh: '瓦墟游魂',
     },
     category: 'uiux',
-    tag: { en: 'Algorithmic 3D Generative Math', zh: '生成式三维数学拓扑结构' },
+    tag: { en: '3D Motion Design', zh: '3D动态设计' },
     year: '2026',
     client: 'Dimension Shift Labs',
     imageUrl: '/src/assets/images/regenerated_image_1780739735044.png',
+    videoUrl: 'https://videotourl.com/videos/1780763891551-41df17e6-59fa-42c6-b8ce-76d852de1a77.mp4',
     overview: {
-      en: 'A mathematical dimensional construct that mutates its internal fractal boundaries live as users interact with cursor displacement and viewport ratios.',
-      zh: '基于复数域曼德勃罗/朱利亚分形公式的三维拓扑空间。利用视口边界与光标坐标，将高维自相似的几何晶体分立生长轨迹化呈现在平面之上。',
+      en: 'Presents an extraordinary blend of virtual and reality, colliding a rough, realistic red brick and rubble background with rhythmically flickering, light, translucent fishbone remains to create an aesthetic where life looms and breathes like a ghost in ruined relics.',
+      zh: '呈现了一种超超的虚实组合风格，将粗糙写实的红砖碎石背景与带有节奏性闪烁的轻盈、半透明鱼骨残骸相碰撞，营造出一种生命在破败遗迹中如幽灵般隐现、呼吸的美学。',
     },
     details: {
       challenge: {
@@ -436,17 +393,18 @@ export const PROJECTS: Project[] = [
   {
     id: 'vortex-code',
     title: {
-      en: 'Vortex Parametric Design Tool',
-      zh: 'Vortex 参数化无代码页面渲染编译器',
+      en: 'Erosive Melody',
+      zh: '锈蚀旋律',
     },
     category: 'code',
-    tag: { en: 'TypeScript Compiler & Engine', zh: 'TypeScript 高性能编译渲染引擎' },
+    tag: { en: 'Dynamic Poster', zh: '动态海报' },
     year: '2026',
     client: 'Self-Initiated Prototype',
     imageUrl: 'https://images.unsplash.com/photo-1614850523459-c2f4c699c52e?q=80&w=1200&auto=format&fit=crop',
+    videoUrl: 'https://videotourl.com/videos/1780809217854-946cb820-d700-4b7f-97cf-0877a54451d9.mp4',
     overview: {
-      en: 'A high-performance creative tool that parses architectural coordinates and automatically synthesizes clean SVG assets, utilizing dynamic tree schemas and math equations.',
-      zh: '高能创意生产力工具，通过极小占用空间的数学公式算力，将用户的骨架画笔实时编译生成极具工业机械质感的矢量工程制图。',
+      en: "The spirit remains, but the medium has rotted—in a wasteland environment, the 'cultural remains' after the collapse of civilization turn music into structures of scrap metal.",
+      zh: '精神仍在，但载体已腐烂——在废土环境下，文明崩塌后的“文化遗骸” 音乐变成“废铁结构”',
     },
     details: {
       challenge: {
@@ -465,17 +423,18 @@ export const PROJECTS: Project[] = [
   {
     id: 'chronicle-code',
     title: {
-      en: 'Chronicle Kinetic Letterpress Poster',
-      zh: 'Chronicle 活字印刷动力学动态海报',
+      en: 'Dusty Movement',
+      zh: '沙尘乐章',
     },
     category: 'code',
-    tag: { en: 'Fluid Typographic Grid', zh: '动态流体网格活字排版' },
+    tag: { en: 'Dynamic Poster', zh: '动态海报' },
     year: '2026',
     client: 'Tokyo Typography Club',
     imageUrl: 'https://images.unsplash.com/photo-1604871000636-074fa5117945?q=80&w=1200&auto=format&fit=crop',
+    videoUrl: 'https://videotourl.com/videos/1780811161443-7aee044a-d1fc-4a39-a81c-e7fc8c8328fa.mp4',
     overview: {
-      en: 'An interactive, responsive digital typography installation simulating classic cold metal letterpress typesetting dynamically shifting under simulated gravitational waves.',
-      zh: '模拟传统金属活字印刷排版的数字化动力学交互海报。字母与汉字结构在模拟引力波振幅中自由压缩、延展，实现古典非线性美学。',
+      en: "In a wasteland environment, the drums are like the 'rhythms of war' resembling the heartbeat of survival.",
+      zh: '在废土环境下，鼓像“战争节奏”像生存的心跳“',
     },
     details: {
       challenge: {
@@ -494,17 +453,18 @@ export const PROJECTS: Project[] = [
   {
     id: 'matrix-code',
     title: {
-      en: 'Matrix Topological Numeric Poster',
-      zh: 'Matrix 拓扑数位动力学海报',
+      en: 'Fractured Station',
+      zh: '断裂电台',
     },
     category: 'code',
-    tag: { en: 'Vector Math Topology', zh: '矢量数学等高拓扑排版' },
+    tag: { en: 'Dynamic Poster', zh: '动态海报' },
     year: '2025',
     client: 'Swiss Avant-Garde Association',
     imageUrl: 'https://images.unsplash.com/photo-1558591710-4b4a1ae0f04d?q=80&w=1200&auto=format&fit=crop',
+    videoUrl: 'https://videotourl.com/videos/1780811742134-76eca650-9fe8-4bf2-8279-8cac6310511e.mp4',
     overview: {
-      en: 'A generative vector poster executing mathematical matrices to construct real-time topological curves on responsive grid structures.',
-      zh: '依据流体力学张量矩阵实时变换的算法海报系统。将网格数理坐标转化成随呼吸律动作曲线起伏的拓扑等高数字线簇。',
+      en: 'In the wasteland, the radio is a highly symbolic icon. It represents the bridge of communication for past human civilization, the last echo of order, and the sole hope for survivors to find one another.',
+      zh: '在废土世界中，电台是一个极具代表性的符号。它象征着旧人类文明的沟通桥梁、秩序的余音，以及幸存者寻找同类的唯一希望。',
     },
     details: {
       challenge: {
@@ -523,17 +483,18 @@ export const PROJECTS: Project[] = [
   {
     id: 'orbit-code',
     title: {
-      en: 'Orbit Gravitational Typographic Poster',
-      zh: 'Orbit 空间引力轨迹字效海报',
+      en: 'Eroded Light Score',
+      zh: '蚀光乐谱',
     },
     category: 'code',
-    tag: { en: 'Gravitational Vector Physics', zh: '引力轨道矢量排版艺术' },
+    tag: { en: 'Dynamic Poster', zh: '动态海报' },
     year: '2026',
     client: 'Zurich Design Biennale',
     imageUrl: 'https://images.unsplash.com/photo-1549490349-8643362247b5?q=80&w=1200&auto=format&fit=crop',
+    videoUrl: 'https://videotourl.com/videos/1780811941769-03614b84-943f-411b-b35b-08f2134864a2.mp4',
     overview: {
-      en: 'A systemic kinetic composition where typographic particles revolve dynamically around user coordinates, illustrating orbital decay.',
-      zh: '极富美学秩序的空间轨道理化海报。排版粒子受用户鼠标及触屏焦点的引力拉涉，偏航掠过并形成优雅的螺旋形扩散微弱光轨。',
+      en: 'In a wasteland environment, music transforms into a stream of energy, decaying like information through space. The light is being eroded by its surroundings, yet it blazes on, radiant.',
+      zh: '在废土环境下音乐变成能量流，像信息在空间中腐蚀。光芒正在被环境侵蚀，却依然耀眼。',
     },
     details: {
       challenge: {
