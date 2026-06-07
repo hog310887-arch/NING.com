@@ -14,15 +14,15 @@ export default function Contact({ lang }: ContactProps) {
   const [copied, setCopied] = useState(false);
 
   // WeChat QR code base64 storage, and Phone persistence
-  const [weChatQr, setWeChatQr] = useState<string | null>(() => {
+  const [weChatQr] = useState<string>(() => {
     try {
-      return localStorage.getItem('contact-wechat-qr');
+      return localStorage.getItem('contact-wechat-qr') || '/src/assets/images/regenerated_image_1780739726126.png';
     } catch {
-      return null;
+      return '/src/assets/images/regenerated_image_1780739726126.png';
     }
   });
 
-  const [phoneNumber, setPhoneNumber] = useState<string>(() => {
+  const [phoneNumber] = useState<string>(() => {
     try {
       return localStorage.getItem('contact-phone-number') || '138-0000-0000';
     } catch {
@@ -30,8 +30,6 @@ export default function Contact({ lang }: ContactProps) {
     }
   });
 
-  const [isEditingPhone, setIsEditingPhone] = useState(false);
-  const [phoneInput, setPhoneInput] = useState(phoneNumber);
   const [isWeChatQrZoomed, setIsWeChatQrZoomed] = useState(false);
 
   const handleCopy = () => {
@@ -95,62 +93,15 @@ export default function Contact({ lang }: ContactProps) {
 
               {/* Phone Channel */}
               <div className="border border-white/10 p-4 bg-white/[0.01] flex flex-col gap-3">
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-3">
-                    <Phone size={16} className="text-white/40" />
-                    <span className="font-mono text-[10px] tracking-wider text-neutral-400 uppercase">
-                      {lang === 'zh' ? '电话联系' : 'PHONE CONTACT'}
-                    </span>
-                  </div>
-                  {!isEditingPhone ? (
-                    <button
-                      onClick={() => {
-                        setPhoneInput(phoneNumber);
-                        setIsEditingPhone(true);
-                      }}
-                      className="font-mono text-[9px] text-neutral-400 hover:text-white px-2 py-0.5 border border-white/15 bg-white/[0.02] cursor-pointer"
-                    >
-                      {lang === 'zh' ? '修改' : 'EDIT'}
-                    </button>
-                  ) : (
-                    <div className="flex gap-1.5">
-                      <button
-                        onClick={() => {
-                          setPhoneNumber(phoneInput);
-                          try {
-                            localStorage.setItem('contact-phone-number', phoneInput);
-                          } catch (e) {
-                            console.error(e);
-                          }
-                          setIsEditingPhone(false);
-                        }}
-                        className="font-mono text-[9px] text-emerald-400 border border-emerald-500/30 px-2 py-0.5 bg-emerald-950/10 cursor-pointer font-bold"
-                      >
-                        {lang === 'zh' ? '保存' : 'SAVE'}
-                      </button>
-                      <button
-                        onClick={() => setIsEditingPhone(false)}
-                        className="font-mono text-[9px] text-neutral-400 border border-white/10 px-2 py-0.5 bg-neutral-900 cursor-pointer"
-                      >
-                        {lang === 'zh' ? '取消' : 'CANCEL'}
-                      </button>
-                    </div>
-                  )}
-                </div>
-
-                {isEditingPhone ? (
-                  <input
-                    type="text"
-                    value={phoneInput}
-                    onChange={(e) => setPhoneInput(e.target.value)}
-                    className="w-full bg-black/80 border border-white/20 p-2 font-mono text-sm text-white focus:outline-none focus:border-white rounded-none"
-                    placeholder="e.g. +86 138-0000-0000"
-                  />
-                ) : (
-                  <span className="font-mono text-sm tracking-wide text-white pl-7 select-all">
-                    {phoneNumber}
+                <div className="flex items-center gap-3">
+                  <Phone size={16} className="text-white/40" />
+                  <span className="font-mono text-[10px] tracking-wider text-neutral-400 uppercase">
+                    {lang === 'zh' ? '电话联系' : 'PHONE CONTACT'}
                   </span>
-                )}
+                </div>
+                <span className="font-mono text-sm tracking-wide text-white pl-7 select-all">
+                  {phoneNumber}
+                </span>
               </div>
 
               {/* WeChat QR Channel */}
@@ -162,78 +113,24 @@ export default function Contact({ lang }: ContactProps) {
                       {lang === 'zh' ? '微信联系' : 'WECHAT CONTACT'}
                     </span>
                   </div>
-                  {weChatQr && (
-                    <button
-                      onClick={() => {
-                        setWeChatQr(null);
-                        try {
-                          localStorage.removeItem('contact-wechat-qr');
-                        } catch (e) {
-                          console.error(e);
-                        }
-                      }}
-                      className="font-mono text-[9px] text-red-500 hover:text-red-400 border border-red-950/20 px-2 py-0.5 bg-red-950/10 hover:bg-red-950/30 cursor-pointer"
-                    >
-                      {lang === 'zh' ? '删除' : 'DEL'}
-                    </button>
-                  )}
                 </div>
 
                 <div 
-                  onClick={() => {
-                    if (weChatQr) {
-                      setIsWeChatQrZoomed(true);
-                    }
-                  }}
-                  className={`relative aspect-square w-32 mx-auto bg-zinc-950 border border-white/5 overflow-hidden group/wechat flex items-center justify-center mt-1 ${weChatQr ? 'cursor-zoom-in' : ''}`}
+                  onClick={() => setIsWeChatQrZoomed(true)}
+                  className="relative aspect-square w-32 mx-auto bg-zinc-950 border border-white/5 overflow-hidden group/wechat flex items-center justify-center mt-1 cursor-zoom-in"
                 >
-                  {weChatQr ? (
-                    <>
-                      <img
-                        src={weChatQr}
-                        alt="WeChat QR Code"
-                        className="w-full h-full object-cover p-1"
-                        referrerPolicy="no-referrer"
-                      />
-                      {/* Click to zoom indicator overlay */}
-                      <div className="absolute inset-0 bg-black/40 opacity-0 group-hover/wechat:opacity-100 transition-opacity flex items-center justify-center pointer-events-none">
-                        <span className="font-mono text-[8px] text-white bg-black/80 px-2 py-0.5 border border-white/10 tracking-widest uppercase rounded">
-                          {lang === 'zh' ? '点击放大' : 'ZOOM IN'}
-                        </span>
-                      </div>
-                    </>
-                  ) : (
-                    <div className="w-full h-full flex flex-col items-center justify-center p-3 text-center relative group-hover/wechat:bg-white/[0.02]">
-                      <QrCode className="w-5 h-5 text-neutral-600 group-hover/wechat:text-neutral-400 transition-colors mb-1" />
-                      <span className="font-mono text-[7px] text-neutral-400 block tracking-wider uppercase">
-                        {lang === 'zh' ? '点击或拖拽' : 'CLICK OR DRAG'}
-                      </span>
-                      <span className="font-mono text-[6px] text-neutral-600 block leading-tight">
-                        {lang === 'zh' ? '上传微信二维码' : 'UPLOAD WECHAT QR'}
-                      </span>
-                      <input
-                        type="file"
-                        accept="image/*"
-                        onChange={(e) => {
-                          const file = e.target.files?.[0];
-                          if (file) {
-                            const reader = new FileReader();
-                            reader.onloadend = () => {
-                              const base64String = reader.result as string;
-                              setWeChatQr(base64String);
-                              try {
-                                localStorage.setItem('contact-wechat-qr', base64String);
-                              } catch (err) {
-                                console.error("Storage error:", err);
-                              }
-                            };
-                            reader.readAsDataURL(file);
-                          }
-                        }}
-                        className="absolute inset-0 opacity-0 cursor-pointer z-10"
-                      />
-                    </div>
-                  )}
+                  <img
+                    src={weChatQr}
+                    alt="WeChat QR Code"
+                    className="w-full h-full object-cover p-1"
+                    referrerPolicy="no-referrer"
+                  />
+                  {/* Click to zoom indicator overlay */}
+                  <div className="absolute inset-0 bg-black/40 opacity-0 group-hover/wechat:opacity-100 transition-opacity flex items-center justify-center pointer-events-none">
+                    <span className="font-mono text-[8px] text-white bg-black/80 px-2 py-0.5 border border-white/10 tracking-widest uppercase rounded">
+                      {lang === 'zh' ? '点击放大' : 'ZOOM IN'}
+                    </span>
+                  </div>
                 </div>
               </div>
 

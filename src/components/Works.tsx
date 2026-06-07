@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Eye, X, ArrowUpRight, Cpu, Compass, LayoutGrid, Layers, Timer, Play, Pause } from 'lucide-react';
+import { Eye, X, ArrowUpRight, LayoutGrid, Layers, Timer, Play, Pause } from 'lucide-react';
 import { Project, Language } from '../types';
 import { PROJECTS, TRANSLATIONS } from '../data';
 
@@ -380,28 +380,7 @@ export default function Works({ lang }: WorksProps) {
                   )}
                 </div>
 
-                {/* In-depth content paragraphs: Challenge / Solution */}
-                <div className="mt-12 space-y-10">
-                  <div>
-                    <h3 className="flex items-center gap-2 font-mono text-[10px] tracking-[0.25em] text-white/40 uppercase mb-4">
-                      <Compass size={12} />
-                      {t.projectChallenge}
-                    </h3>
-                    <p className="text-sm text-neutral-300 leading-relaxed font-light whitespace-pre-line pl-5 border-l border-white/10">
-                      {activeProject.details.challenge[lang]}
-                    </p>
-                  </div>
 
-                  <div>
-                    <h3 className="flex items-center gap-2 font-mono text-[10px] tracking-[0.25em] text-white/40 uppercase mb-4">
-                      <Cpu size={12} />
-                      {t.projectSolution}
-                    </h3>
-                    <p className="text-sm text-neutral-300 leading-relaxed font-light whitespace-pre-line pl-5 border-l border-white/10">
-                      {activeProject.details.solution[lang]}
-                    </p>
-                  </div>
-                </div>
 
               </div>
 
