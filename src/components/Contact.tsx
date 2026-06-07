@@ -58,7 +58,7 @@ export default function Contact({ lang }: ContactProps) {
           
           <div>
             <h3 className="text-2xl md:text-3xl font-extrabold tracking-tight text-white uppercase leading-snug mb-8 text-center">
-              {lang === 'zh' ? '期待您的联系。' : 'Looking forward to hearing from you.'}
+              {lang === 'zh' ? '期待您的联系' : 'Looking forward to hearing from you.'}
             </h3>
 
             {/* Instant Clipboard Copy interactive widget */}
