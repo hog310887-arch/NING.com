@@ -4,6 +4,14 @@ import { Briefcase, Milestone, Award, CircleDot, Database, Binary, Codepen, Came
 import { Language } from '../types';
 import { TRANSLATIONS, EXPERIENCE, SKILL_GROUPS } from '../data';
 
+// Static image imports for production build optimization
+import photo1 from '../assets/images/regenerated_image_1780840174651.jpg';
+import photo2 from '../assets/images/regenerated_image_1780841019807.jpg';
+import photo3 from '../assets/images/regenerated_image_1780841070137.jpg';
+import photo4 from '../assets/images/regenerated_image_1780841404407.jpg';
+import photo5 from '../assets/images/regenerated_image_1780842418427.jpg';
+import photo6 from '../assets/images/regenerated_image_1780844634932.jpg';
+
 interface AboutProps {
   lang: Language;
 }
@@ -13,12 +21,12 @@ export default function About({ lang }: AboutProps) {
   const [hoveredExp, setHoveredExp] = useState<string | null>(null);
   // Storage of uploaded multiple photo base64 strings
   const [photoUrls] = useState<string[]>([
-    '/src/assets/images/regenerated_image_1780840174651.jpg',
-    '/src/assets/images/regenerated_image_1780841019807.jpg',
-    '/src/assets/images/regenerated_image_1780841070137.jpg',
-    '/src/assets/images/regenerated_image_1780841404407.jpg',
-    '/src/assets/images/regenerated_image_1780842418427.jpg',
-    '/src/assets/images/regenerated_image_1780844634932.jpg'
+    photo1,
+    photo2,
+    photo3,
+    photo4,
+    photo5,
+    photo6
   ]);
 
   const [activePhotoIndex, setActivePhotoIndex] = useState(0);

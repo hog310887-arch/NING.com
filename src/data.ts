@@ -1,5 +1,11 @@
 import { Project, ExperienceItem, SkillGroup } from './types';
 
+import projectImg1 from './assets/images/regenerated_image_1780590527988.png';
+import projectImg2 from './assets/images/regenerated_image_1780590393689.png';
+import projectImg3 from './assets/images/regenerated_image_1780739720005.png';
+import projectImg4 from './assets/images/regenerated_image_1780739729923.png';
+import projectImg5 from './assets/images/regenerated_image_1780739735044.png';
+
 export const TRANSLATIONS = {
   en: {
     navHome: 'INDEX',
@@ -128,7 +134,7 @@ export const PROJECTS: Project[] = [
     tag: { en: '3D Motion Design', zh: '3D动态设计' },
     year: '2026',
     client: 'Chronos Lab Inc.',
-    imageUrl: '/src/assets/images/regenerated_image_1780590527988.png',
+    imageUrl: projectImg1,
     videoUrl: 'https://videotourl.com/videos/1780758599466-ed5e9bfa-3df8-4a0e-a606-ba28165a8d54.mp4',
     overview: {
       en: "Presents a futuristic and surreal 'Cyber Nature' style, cleverly blending icy, crystal-clear textures with organic plant growth animations to spark a quiet, dreamlike visual experience.",
@@ -218,7 +224,7 @@ export const PROJECTS: Project[] = [
     tag: { en: '3D Motion Design', zh: '3D动态设计' },
     year: '2026',
     client: 'Zenith Space Instruments',
-    imageUrl: '/src/assets/images/regenerated_image_1780590393689.png',
+    imageUrl: projectImg2,
     videoUrl: 'https://videotourl.com/videos/1780762194484-e0bc8959-5b74-410f-9d5c-a3a7abdc7e30.mp4',
     overview: {
       en: 'The video presents an ultimate wasteland aesthetic, using cracked scorched earth, bone-like mutated plants, and mottled rusted typography to create a desolate, ruined yet struggling end-of-world atmosphere.',
@@ -309,7 +315,7 @@ export const PROJECTS: Project[] = [
     tag: { en: '3D Motion Design', zh: '3D动态设计' },
     year: '2026',
     client: 'Elysian Future Reality',
-    imageUrl: '/src/assets/images/regenerated_image_1780739720005.png',
+    imageUrl: projectImg3,
     videoUrl: 'https://videotourl.com/videos/1780764820903-200cb1a3-6021-41ba-ac1d-def7c64c808d.mp4',
     overview: {
       en: 'An instant transition from cold, polished industrial materials to rusted ruins and rubble-filled wasteland, creating a desolate, fractured visual tension filled with industrial decay.',
@@ -340,7 +346,7 @@ export const PROJECTS: Project[] = [
     tag: { en: '3D Motion Design', zh: '3D动态设计' },
     year: '2025',
     client: 'Metropolitan Digital Museum',
-    imageUrl: '/src/assets/images/regenerated_image_1780739729923.png',
+    imageUrl: projectImg4,
     videoUrl: 'https://videotourl.com/videos/1780763453380-fea6a7a9-8320-45f2-aa4c-a75644921f6a.mp4',
     overview: {
       en: 'Presents a style blending deep-sea claustrophobia and bionic machinery, creating a dynamic homepage with cold-shining metallic fishbones.',
@@ -370,7 +376,7 @@ export const PROJECTS: Project[] = [
     tag: { en: '3D Motion Design', zh: '3D动态设计' },
     year: '2026',
     client: 'Dimension Shift Labs',
-    imageUrl: '/src/assets/images/regenerated_image_1780739735044.png',
+    imageUrl: projectImg5,
     videoUrl: 'https://videotourl.com/videos/1780763891551-41df17e6-59fa-42c6-b8ce-76d852de1a77.mp4',
     overview: {
       en: 'Presents an extraordinary blend of virtual and reality, colliding a rough, realistic red brick and rubble background with rhythmically flickering, light, translucent fishbone remains to create an aesthetic where life looms and breathes like a ghost in ruined relics.',
