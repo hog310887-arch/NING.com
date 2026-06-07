@@ -4,7 +4,7 @@ import { Mail, Copy, Check, Github, Linkedin, Phone, QrCode, MessageSquare, Uplo
 import { Language } from '../types';
 import { TRANSLATIONS } from '../data';
 
-import defaultWeChatQr from '../assets/images/regenerated_image_1780739726126.png';
+import defaultWeChatQr from '../assets/images/regenerated_image_1780841019807.jpg';
 
 interface ContactProps {
   lang: Language;
@@ -14,17 +14,6 @@ export default function Contact({ lang }: ContactProps) {
   const t = TRANSLATIONS[lang];
   const emailAddress = '1623984718@qq.com';
   const [copied, setCopied] = useState(false);
-  const fileInputRef = useRef<HTMLInputElement>(null);
-  const [isDragging, setIsDragging] = useState(false);
-
-  // WeChat QR code base64 storage, and Phone persistence
-  const [weChatQr, setWeChatQr] = useState<string>(() => {
-    try {
-      return localStorage.getItem('contact-wechat-qr') || defaultWeChatQr;
-    } catch {
-      return defaultWeChatQr;
-    }
-  });
 
   const [phoneNumber] = useState<string>('15365802003/18061281297');
   const [isWeChatQrZoomed, setIsWeChatQrZoomed] = useState(false);
@@ -33,61 +22,6 @@ export default function Contact({ lang }: ContactProps) {
     navigator.clipboard.writeText(emailAddress);
     setCopied(true);
     setTimeout(() => setCopied(false), 2500);
-  };
-
-  const processFile = (file: File) => {
-    if (!file.type.startsWith('image/')) {
-      return;
-    }
-    const reader = new FileReader();
-    reader.onload = (event) => {
-      const base64String = event.target?.result as string;
-      if (base64String) {
-        setWeChatQr(base64String);
-        try {
-          localStorage.setItem('contact-wechat-qr', base64String);
-        } catch (err) {
-          console.error('Failed to save QR code to localStorage:', err);
-        }
-      }
-    };
-    reader.readAsDataURL(file);
-  };
-
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (file) {
-      processFile(file);
-    }
-  };
-
-  const handleDragOver = (e: React.DragEvent) => {
-    e.preventDefault();
-    setIsDragging(true);
-  };
-
-  const handleDragLeave = () => {
-    setIsDragging(false);
-  };
-
-  const handleDrop = (e: React.DragEvent) => {
-    e.preventDefault();
-    setIsDragging(false);
-    const file = e.dataTransfer.files?.[0];
-    if (file) {
-      processFile(file);
-    }
-  };
-
-  const handleResetQr = (e: React.MouseEvent) => {
-    e.stopPropagation();
-    const defaultQr = defaultWeChatQr;
-    setWeChatQr(defaultQr);
-    try {
-      localStorage.removeItem('contact-wechat-qr');
-    } catch (err) {
-      console.error(err);
-    }
   };
 
   return (
@@ -157,14 +91,7 @@ export default function Contact({ lang }: ContactProps) {
               </div>
 
               {/* WeChat QR Channel - Photo Plate Aesthetic Block */}
-              <div 
-                className={`border border-white/10 p-5 bg-white/[0.01] flex flex-col gap-4 relative transition-colors duration-200 ${
-                  isDragging ? 'border-dashed border-white/50 bg-white/[0.04]' : ''
-                }`}
-                onDragOver={handleDragOver}
-                onDragLeave={handleDragLeave}
-                onDrop={handleDrop}
-              >
+              <div className="border border-white/10 p-5 bg-white/[0.01] flex flex-col gap-4 relative">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-3">
                     <QrCode size={16} className="text-white/40" />
@@ -172,42 +99,10 @@ export default function Contact({ lang }: ContactProps) {
                       {lang === 'zh' ? '微信联系：15365802003 或微信扫码' : 'WeChat Contact: 15365802003 or Scan'}
                     </span>
                   </div>
-                  
-                  {/* High tech action panel */}
-                  <div className="flex items-center gap-2">
-                    <button
-                      type="button"
-                      onClick={() => fileInputRef.current?.click()}
-                      className="flex items-center gap-1 border border-white/10 hover:border-white/30 bg-black hover:bg-zinc-900 text-white p-1 px-2 font-mono text-[8px] tracking-widest transition-colors uppercase cursor-pointer"
-                      title={lang === 'zh' ? '上传专属二维码' : 'Upload QR Code'}
-                    >
-                      <Upload size={10} />
-                      <span>{lang === 'zh' ? '更换二维码' : 'CHANGE QR'}</span>
-                    </button>
-                    {weChatQr !== defaultWeChatQr && (
-                      <button
-                        type="button"
-                        onClick={handleResetQr}
-                        className="flex items-center gap-1 border border-red-950/40 hover:border-red-500/30 hover:bg-red-950/20 text-red-400 p-1 px-1.5 font-mono text-[8px] tracking-widest transition-colors uppercase cursor-pointer"
-                        title={lang === 'zh' ? '恢复默认二维码' : 'Reset'}
-                      >
-                        <Trash2 size={10} />
-                      </button>
-                    )}
-                  </div>
                 </div>
 
-                {/* Hidden input */}
-                <input
-                  type="file"
-                  ref={fileInputRef}
-                  onChange={handleFileChange}
-                  accept="image/*"
-                  className="hidden"
-                />
-
                 {/* Highly-crafted Photo Plate Grid Frame */}
-                <div className="border border-white/5 bg-zinc-950 p-4 relative overflow-hidden flex flex-col items-center">
+                <div className="border border-white/5 bg-zinc-950 p-4 relative overflow-hidden flex flex-col items-center flex-1">
                   {/* Camera corner brackets */}
                   <div className="absolute top-0 left-0 w-3 h-3 border-t-2 border-l-2 border-neutral-600"></div>
                   <div className="absolute top-0 right-0 w-3 h-3 border-t-2 border-r-2 border-neutral-600"></div>
@@ -217,10 +112,10 @@ export default function Contact({ lang }: ContactProps) {
                   <div className="flex items-center justify-between w-full border-b border-white/5 pb-1.5 mb-3">
                     <span className="font-mono text-[7px] tracking-widest text-neutral-400 uppercase flex items-center gap-1">
                       <span className="w-1 h-1 rounded-full bg-emerald-400 animate-pulse"></span>
-                      SYS_QR: DETECTED_FEED
+                      SYS_QR: DECODED_STREAM
                     </span>
                     <span className="font-mono text-[7px] text-neutral-500">
-                      [ SCAN_ACTIVE ]
+                      [ SECURE_LOCK ]
                     </span>
                   </div>
 
@@ -230,7 +125,7 @@ export default function Contact({ lang }: ContactProps) {
                     className="relative aspect-square w-32 border border-white/5 overflow-hidden group/wechat flex items-center justify-center mt-1 cursor-zoom-in bg-zinc-900"
                   >
                     <img
-                      src={weChatQr}
+                      src={defaultWeChatQr}
                       alt="WeChat QR Code"
                       className="w-full h-full object-cover p-1.5"
                       referrerPolicy="no-referrer"
@@ -255,13 +150,6 @@ export default function Contact({ lang }: ContactProps) {
                         ease: "easeInOut"
                       }}
                     />
-                  </div>
-
-                  {/* Support drag-and-drop info text */}
-                  <div className="mt-3 text-center pointer-events-none select-none">
-                    <p className="font-mono text-[8px] text-zinc-500 uppercase tracking-widest leading-normal">
-                      {lang === 'zh' ? '拖拽可在本板块直接添加或更新专属二维码图片' : 'DRAG & DROP TO DIRECTLY ATTACH OR UPDATE CURRENT QR CODE'}
-                    </p>
                   </div>
                 </div>
               </div>
@@ -305,7 +193,7 @@ export default function Contact({ lang }: ContactProps) {
 
       {/* WeChat QR Zoom Modal */}
       <AnimatePresence>
-        {isWeChatQrZoomed && weChatQr && (
+        {isWeChatQrZoomed && defaultWeChatQr && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -347,7 +235,7 @@ export default function Contact({ lang }: ContactProps) {
 
               <div className="relative aspect-square w-full bg-white p-4">
                 <img
-                  src={weChatQr}
+                  src={defaultWeChatQr}
                   alt="Zoomed WeChat QR Code"
                   className="w-full h-full object-contain"
                   referrerPolicy="no-referrer"
