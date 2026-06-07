@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Eye, X, ArrowUpRight, LayoutGrid, Layers, Timer, Play, Pause } from 'lucide-react';
+import { Eye, X, ArrowUpRight, LayoutGrid, Layers, Play, Pause } from 'lucide-react';
 import { Project, Language } from '../types';
 import { PROJECTS, TRANSLATIONS } from '../data';
 
@@ -342,45 +342,6 @@ export default function Works({ lang }: WorksProps) {
                   )}
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent pointer-events-none"></div>
                 </div>
-
-                {/* Subgrid Specs list */}
-                <div className="mt-12 grid grid-cols-2 lg:grid-cols-4 gap-6 border-y border-white/10 py-8">
-                  <div>
-                    <span className="font-mono text-[9px] text-white/3 tracking-widest block mb-1 uppercase">
-                      {t.projectClient}
-                    </span>
-                    <span className="text-sm text-white font-medium">{activeProject.client}</span>
-                  </div>
-                  <div>
-                    <span className="font-mono text-[9px] text-white/3 tracking-widest block mb-1 uppercase">
-                      {t.projectRole}
-                    </span>
-                    <span className="text-xs text-white font-light block leading-snug">
-                      {activeProject.details.role[lang]}
-                    </span>
-                  </div>
-                  <div>
-                    <span className="font-mono text-[9px] text-white/3 tracking-widest block mb-1 uppercase">
-                      {t.projectDuration}
-                    </span>
-                    <span className="text-sm text-white font-medium flex items-center gap-1">
-                      <Timer size={12} className="text-white/50" />
-                      {activeProject.details.duration}
-                    </span>
-                  </div>
-                  {activeProject.details.metrics && (
-                    <div>
-                      <span className="font-mono text-[9px] text-white/3 tracking-widest block mb-1 uppercase">
-                        {t.projectMetrics}
-                      </span>
-                      <span className="text-xs text-white font-semibold block text-emerald-400">
-                        {activeProject.details.metrics[lang]}
-                      </span>
-                    </div>
-                  )}
-                </div>
-
-
 
               </div>
 
