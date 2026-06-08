@@ -5,6 +5,14 @@ import projectImg2 from './assets/images/regenerated_image_1780590393689.png';
 import projectImg3 from './assets/images/regenerated_image_1780739720005.png';
 import projectImg4 from './assets/images/regenerated_image_1780739729923.png';
 import projectImg5 from './assets/images/regenerated_image_1780739735044.png';
+import wechatImg678 from './assets/images/WechatIMG678.jpg';
+import orbitCodeImg from './assets/images/regenerated_image_1780905481035.jpg';
+import vortexCodeImg from './assets/images/regenerated_image_1780905585569.jpg';
+import chronicleCodeImg from './assets/images/regenerated_image_1780905663697.jpg';
+import matrixCodeImg from './assets/images/regenerated_image_1780905745231.jpg';
+import novaBrandImg from './assets/images/regenerated_image_1780905897213.png';
+import aeonBrandingImg from './assets/images/regenerated_image_1780905992686.png';
+import aphelionVisualImg from './assets/images/regenerated_image_1780906098426.png';
 
 export const TRANSLATIONS = {
   en: {
@@ -164,7 +172,7 @@ export const PROJECTS: Project[] = [
     tag: { en: 'AE Effects Video', zh: 'ae特效视频' },
     year: '2026',
     client: 'Aeon Labs Corp.',
-    imageUrl: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1200&auto=format&fit=crop',
+    imageUrl: aeonBrandingImg,
     videoUrl: 'https://videotourl.com/videos/1780812829435-719b0088-f6bf-443d-bb8a-7271b86cf7a7.mp4',
     overview: {
       en: 'Using aggressive time remapping, ghosting, and frame-dropping/tearing of 3D cartoon assets in AE, a concrete animation is deconstructed into a grotesque, pulsating, and visually striking dynamic video sequence.',
@@ -194,7 +202,7 @@ export const PROJECTS: Project[] = [
     tag: { en: 'Short Video Ads', zh: '短视频广告' },
     year: '2026',
     client: 'Aphelion Sound Technologies',
-    imageUrl: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=1200&auto=format&fit=crop',
+    imageUrl: aphelionVisualImg,
     videoUrl: 'https://videotourl.com/videos/1780812605728-421a55c4-6539-4dc4-bed1-3e5a66b58a0d.mp4',
     overview: {
       en: 'Responsible for photography, editing, color grading, packaging, and post-production.',
@@ -254,7 +262,7 @@ export const PROJECTS: Project[] = [
     tag: { en: 'AE Effects Video', zh: 'ae特效视频' },
     year: '2026',
     client: 'Nova Tech Entertainment',
-    imageUrl: 'https://images.unsplash.com/photo-1541701494587-cb58502866ab?q=80&w=1200&auto=format&fit=crop',
+    imageUrl: novaBrandImg,
     videoUrl: 'https://videotourl.com/videos/1780812933951-a901346f-c302-4b2f-9e16-ede3a1cc3401.mp4',
     overview: {
       en: 'Presents a visual style combining Eastern fantasy and modern lighting accents, cleverly using space mask transitions and high-intensity volumetric lighting to transform calm, heavy traditional red-walled ancient architecture into highly impactful, surrealistic dynamic images.',
@@ -285,7 +293,7 @@ export const PROJECTS: Project[] = [
     tag: { en: 'Dynamic Poster', zh: '动态海报' },
     year: '2026',
     client: 'Experimental Typography Biennale',
-    imageUrl: 'https://images.unsplash.com/photo-1502239608882-93b729c6af43?q=80&w=1200&auto=format&fit=crop',
+    imageUrl: wechatImg678,
     videoUrl: 'https://videotourl.com/videos/1780808363485-31d829cb-ab99-4059-844c-ee4e40153c0c.mp4',
     overview: {
       en: 'In a wasteland environment, the voice archives of past civilizations play on a loop like glitched time, yet they remain the sole hope of the apocalypse.',
@@ -406,7 +414,7 @@ export const PROJECTS: Project[] = [
     tag: { en: 'Dynamic Poster', zh: '动态海报' },
     year: '2026',
     client: 'Self-Initiated Prototype',
-    imageUrl: 'https://images.unsplash.com/photo-1614850523459-c2f4c699c52e?q=80&w=1200&auto=format&fit=crop',
+    imageUrl: vortexCodeImg,
     videoUrl: 'https://videotourl.com/videos/1780809217854-946cb820-d700-4b7f-97cf-0877a54451d9.mp4',
     overview: {
       en: "The spirit remains, but the medium has rotted—in a wasteland environment, the 'cultural remains' after the collapse of civilization turn music into structures of scrap metal.",
@@ -436,7 +444,7 @@ export const PROJECTS: Project[] = [
     tag: { en: 'Dynamic Poster', zh: '动态海报' },
     year: '2026',
     client: 'Tokyo Typography Club',
-    imageUrl: 'https://images.unsplash.com/photo-1604871000636-074fa5117945?q=80&w=1200&auto=format&fit=crop',
+    imageUrl: chronicleCodeImg,
     videoUrl: 'https://videotourl.com/videos/1780811161443-7aee044a-d1fc-4a39-a81c-e7fc8c8328fa.mp4',
     overview: {
       en: "In a wasteland environment, the drums are like the 'rhythms of war' resembling the heartbeat of survival.",
@@ -466,7 +474,7 @@ export const PROJECTS: Project[] = [
     tag: { en: 'Dynamic Poster', zh: '动态海报' },
     year: '2026',
     client: 'Swiss Avant-Garde Association',
-    imageUrl: 'https://images.unsplash.com/photo-1558591710-4b4a1ae0f04d?q=80&w=1200&auto=format&fit=crop',
+    imageUrl: matrixCodeImg,
     videoUrl: 'https://videotourl.com/videos/1780811742134-76eca650-9fe8-4bf2-8279-8cac6310511e.mp4',
     overview: {
       en: 'In the wasteland, the radio is a highly symbolic icon. It represents the bridge of communication for past human civilization, the last echo of order, and the sole hope for survivors to find one another.',
@@ -496,7 +504,7 @@ export const PROJECTS: Project[] = [
     tag: { en: 'Dynamic Poster', zh: '动态海报' },
     year: '2026',
     client: 'Zurich Design Biennale',
-    imageUrl: 'https://images.unsplash.com/photo-1549490349-8643362247b5?q=80&w=1200&auto=format&fit=crop',
+    imageUrl: orbitCodeImg,
     videoUrl: 'https://videotourl.com/videos/1780811941769-03614b84-943f-411b-b35b-08f2134864a2.mp4',
     overview: {
       en: 'In a wasteland environment, music transforms into a stream of energy, decaying like information through space. The light is being eroded by its surroundings, yet it blazes on, radiant.',

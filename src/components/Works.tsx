@@ -12,6 +12,7 @@ export default function Works({ lang }: WorksProps) {
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
   const [activeProject, setActiveProject] = useState<Project | null>(null);
   const [layoutMode, setLayoutMode] = useState<'grid' | 'list'>('grid');
+  const [overrideImages, setOverrideImages] = useState<Record<string, string>>({});
   const t = TRANSLATIONS[lang];
 
   const inspectVideoRef = useRef<HTMLVideoElement | null>(null);
@@ -24,6 +25,18 @@ export default function Works({ lang }: WorksProps) {
   const [currentTime, setCurrentTime] = useState<number>(0);
   const [duration, setDuration] = useState<number>(0);
   const [hasPlayed, setHasPlayed] = useState<boolean>(false);
+  const [isMobile, setIsMobile] = useState<boolean>(false);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => {
+      window.removeEventListener('resize', checkMobile);
+    };
+  }, []);
 
   useEffect(() => {
     const handleFullscreenChange = () => {
@@ -37,16 +50,19 @@ export default function Works({ lang }: WorksProps) {
 
   useEffect(() => {
     if (activeProject && activeProject.videoUrl) {
-      setIsInspectPlaying(false); // DO NOT AUTOPLAY, start as paused
+      setIsInspectPlaying(false);
       setCurrentTime(0);
       setDuration(0);
-      setHasPlayed(false); // Reset playback state for overlay cover
-      // Let the modal open and frame mount, then configure initial playback settings
+      setHasPlayed(true); // Since cover image overlay is removed, treat as active
+      
       const timer = setTimeout(() => {
         if (inspectVideoRef.current) {
           try {
-            inspectVideoRef.current.muted = isMuted; // keep user selected mute status
-            inspectVideoRef.current.volume = volume; // keep user selected volume
+            // Do not autoplay - keep paused initially per user request
+            inspectVideoRef.current.pause();
+            // Keep muted and volume in sync with states
+            inspectVideoRef.current.muted = isMuted;
+            inspectVideoRef.current.volume = volume;
             if (inspectVideoRef.current.readyState >= 1) {
               inspectVideoRef.current.currentTime = 0;
             }
@@ -54,7 +70,7 @@ export default function Works({ lang }: WorksProps) {
             console.warn("Async init of video failed gracefully:", err);
           }
         }
-      }, 200);
+      }, 250);
       return () => clearTimeout(timer);
     } else {
       setIsInspectPlaying(false);
@@ -175,6 +191,7 @@ export default function Works({ lang }: WorksProps) {
   const handleImageError = (e: React.SyntheticEvent<HTMLImageElement>, projectId: string) => {
     const fallbacks: Record<string, string> = {
       'chronos': 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1200&auto=format&fit=crop',
+      'prism-posters': 'https://images.unsplash.com/photo-1502239608882-93b729c6af43?q=80&w=1200&auto=format&fit=crop',
       'zenith-hologram': 'https://images.unsplash.com/photo-1634017839464-5c339ebe3cb4?q=80&w=1200&auto=format&fit=crop',
       'elysian-canvas': 'https://images.unsplash.com/photo-1544377193-33dcf4d68fb5?q=80&w=1200&auto=format&fit=crop',
       'nebula-dynamics': 'https://images.unsplash.com/photo-1462331940025-496dfbfc7564?q=80&w=1200&auto=format&fit=crop',
@@ -270,32 +287,20 @@ export default function Works({ lang }: WorksProps) {
               >
                 {/* Image panel with zoom shader effect */}
                 <div className="relative aspect-[16/10] overflow-hidden bg-neutral-900 border-b border-white/10">
-                  {project.videoUrl ? (
-                    <>
-                      {/* Video clip preview - Only autoplay/loop on desktop */}
-                      <video
-                        src={project.videoUrl}
-                        id={`project-card-video-${project.id}`}
-                        autoPlay
-                        loop
-                        muted
-                        playsInline
-                        preload="metadata"
-                        className="hidden md:block w-full h-full object-cover md:grayscale grayscale-0 brightness-90 group-hover:grayscale-0 group-hover:scale-105 group-hover:brightness-100 transition-all duration-700 ease-out"
-                      />
-                      {/* Reliable static high-contrast colorful scene cover image - rendered on mobile devices with full referrerPolicy capabilities */}
-                      <img
-                        src={project.imageUrl}
-                        alt={project.title[lang]}
-                        id={`project-card-image-fallback-${project.id}`}
-                        referrerPolicy="no-referrer"
-                        onError={(e) => handleImageError(e, project.id)}
-                        className="block md:hidden w-full h-full object-cover brightness-90 group-hover:scale-105 group-hover:brightness-100 transition-all duration-700 ease-out"
-                      />
-                    </>
+                  {project.videoUrl && !isMobile ? (
+                    <video
+                      src={project.videoUrl}
+                      id={`project-card-video-${project.id}`}
+                      autoPlay
+                      loop
+                      muted
+                      playsInline
+                      preload="metadata"
+                      className="w-full h-full object-cover md:grayscale grayscale-0 brightness-90 group-hover:grayscale-0 group-hover:scale-105 group-hover:brightness-100 transition-all duration-700 ease-out"
+                    />
                   ) : (
                     <img
-                      src={project.imageUrl}
+                      src={overrideImages[project.id] || project.imageUrl}
                       alt={project.title[lang]}
                       id={`project-card-image-${project.id}`}
                       referrerPolicy="no-referrer"
@@ -470,39 +475,33 @@ export default function Works({ lang }: WorksProps) {
                 >
                   {activeProject.videoUrl ? (
                     <>
-                      <video
-                        ref={inspectVideoRef}
-                        src={activeProject.videoUrl}
-                        id={`project-inspect-video-${activeProject.id}`}
-                        loop
-                        playsInline
-                        muted={isMuted}
-                        preload="auto"
-                        onTimeUpdate={handleTimeUpdate}
-                        onLoadedMetadata={handleLoadedMetadata}
-                        className="w-full h-auto block brightness-95 ring-0 outline-none"
-                      />
-                      
-                      {/* Colorful static image cover representation - guarantees instant high-contrast rendering on any mobile browser */}
-                      {!hasPlayed && (
-                        <div 
-                          className="absolute inset-0 z-20 cursor-pointer flex items-center justify-center bg-[#050505]"
+                      <div className="relative w-full h-auto overflow-hidden">
+                        <video
+                          ref={inspectVideoRef}
+                          src={activeProject.videoUrl}
+                          id={`project-inspect-video-${activeProject.id}`}
+                          loop
+                          playsInline
+                          muted={isMuted}
+                          preload="auto"
+                          onTimeUpdate={handleTimeUpdate}
+                          onLoadedMetadata={handleLoadedMetadata}
                           onClick={toggleInspectPlay}
-                        >
-                          <img
-                            src={activeProject.imageUrl}
-                            alt={activeProject.title[lang]}
-                            referrerPolicy="no-referrer"
-                            onError={(e) => handleImageError(e, activeProject.id)}
-                            className="w-full h-full object-cover transition-opacity duration-300 select-none pointer-events-none"
-                          />
-                          <div className="absolute inset-0 bg-black/40 flex items-center justify-center hover:bg-black/20 transition-all duration-300">
-                            <div className="w-16 h-16 rounded-full border border-white/20 bg-black/70 flex items-center justify-center text-white backdrop-blur-md scale-100 hover:scale-110 transition-transform duration-300 shadow-2xl">
-                              <Play size={24} className="fill-white ml-1" />
+                          className="w-full h-auto block brightness-95 ring-0 outline-none cursor-pointer"
+                        />
+                        
+                        {/* Play Overlay Button in the Center when video is Paused */}
+                        {!isInspectPlaying && (
+                          <div 
+                            onClick={toggleInspectPlay}
+                            className="absolute inset-0 flex items-center justify-center bg-black/20 hover:bg-black/30 transition-all duration-300 cursor-pointer z-20"
+                          >
+                            <div className="w-16 h-16 rounded-full border border-white/20 bg-black/60 flex items-center justify-center text-white backdrop-blur-sm shadow-2xl scale-100 hover:scale-[1.08] active:scale-95 transition-transform duration-300">
+                              <Play size={24} className="fill-white ml-1 text-white" />
                             </div>
                           </div>
-                        </div>
-                      )}
+                        )}
+                      </div>
                       
                       {/* Integrated Control Overlay showing on Hover or when Paused */}
                       <div className={`absolute bottom-0 inset-x-0 bg-gradient-to-t from-black/95 via-black/80 to-transparent p-4 flex flex-col gap-3.5 z-30 transition-all duration-300 ${isHovered || !isInspectPlaying ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2 pointer-events-none'}`}>
@@ -580,7 +579,7 @@ export default function Works({ lang }: WorksProps) {
                     </>
                   ) : (
                     <img
-                      src={activeProject.imageUrl}
+                      src={overrideImages[activeProject.id] || activeProject.imageUrl}
                       alt={activeProject.title[lang]}
                       id={`project-inspect-image-${activeProject.id}`}
                       referrerPolicy="no-referrer"

@@ -1,6 +1,6 @@
 import React, { useState, useRef } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Mail, Copy, Check, Github, Linkedin, Phone, QrCode, MessageSquare, Upload, Trash2, Camera, Image } from 'lucide-react';
+import { Mail, Copy, Check, Phone, QrCode, MessageSquare, Upload, Trash2, Camera, Image } from 'lucide-react';
 import { Language } from '../types';
 import { TRANSLATIONS } from '../data';
 
@@ -157,36 +157,7 @@ export default function Contact({ lang }: ContactProps) {
             </div>
           </div>
 
-          {/* Social Coordinates Grid */}
-          <div className="mt-12 pt-8 border-t border-white/10 flex flex-col items-center">
-            <span className="font-mono text-[9px] text-white/40 tracking-widest uppercase block mb-4">
-              SYNCHRONIZATION FEEDS
-            </span>
-            <div className="flex flex-wrap gap-4 justify-center">
-              <a 
-                id="social-link-github"
-                href="https://github.com" 
-                target="_blank" 
-                rel="noreferrer"
-                referrerPolicy="no-referrer"
-                className="flex items-center gap-2 border border-white/5 hover:border-white/30 bg-black p-3 font-mono text-[10px] tracking-widest text-neutral-300 hover:text-white transition-colors uppercase cursor-pointer"
-              >
-                <Github size={12} />
-                <span>GITHUB_NET</span>
-              </a>
-              <a 
-                id="social-link-linkedin"
-                href="https://linkedin.com" 
-                target="_blank" 
-                rel="noreferrer"
-                referrerPolicy="no-referrer"
-                className="flex items-center gap-2 border border-white/5 hover:border-white/30 bg-black p-3 font-mono text-[10px] tracking-widest text-neutral-300 hover:text-white transition-colors uppercase cursor-pointer"
-              >
-                <Linkedin size={12} />
-                <span>LINKEDIN_NET</span>
-              </a>
-            </div>
-          </div>
+
         </div>
 
       </div>

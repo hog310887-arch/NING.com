@@ -19,13 +19,7 @@ export default function About({ lang }: AboutProps) {
   const t = TRANSLATIONS[lang];
   const [hoveredExp, setHoveredExp] = useState<string | null>(null);
   // Storage of uploaded multiple photo base64 strings
-  const [photoUrls] = useState<string[]>([
-    photo1,
-    photo3,
-    photo4,
-    photo5,
-    photo6
-  ]);
+  const [photoUrls] = useState<string[]>([photo1, photo3, photo4, photo5, photo6]);
 
   const [activePhotoIndex, setActivePhotoIndex] = useState(0);
   const [zoomedPhotoIndex, setZoomedPhotoIndex] = useState<number | null>(null);
