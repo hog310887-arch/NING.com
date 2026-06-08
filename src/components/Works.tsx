@@ -20,6 +20,17 @@ export default function Works({ lang }: WorksProps) {
   useEffect(() => {
     if (activeProject && activeProject.videoUrl) {
       setIsInspectPlaying(true);
+      // Let the modal open and frame mount, then trigger playback with original sound
+      const timer = setTimeout(() => {
+        if (inspectVideoRef.current) {
+          inspectVideoRef.current.muted = false; // ensure original sound status
+          inspectVideoRef.current.play().catch((err) => {
+            console.log("Audible autoplay paused or blocked by system gesture restrictions, user can click play:", err);
+            setIsInspectPlaying(false);
+          });
+        }
+      }, 200);
+      return () => clearTimeout(timer);
     } else {
       setIsInspectPlaying(false);
     }
@@ -151,15 +162,14 @@ export default function Works({ lang }: WorksProps) {
                 <div className="relative aspect-[16/10] overflow-hidden bg-neutral-900 border-b border-white/10">
                   {project.videoUrl ? (
                     <video
-                      src={project.videoUrl}
+                      src={`${project.videoUrl}#t=0.01`}
                       id={`project-card-video-${project.id}`}
                       autoPlay
                       loop
                       muted
                       playsInline
-                      poster={project.imageUrl}
                       preload="auto"
-                      className="w-full h-full object-cover grayscale brightness-90 group-hover:grayscale-0 group-hover:scale-105 group-hover:brightness-100 transition-all duration-700 ease-out"
+                      className="w-full h-full object-cover md:grayscale grayscale-0 brightness-90 group-hover:grayscale-0 group-hover:scale-105 group-hover:brightness-100 transition-all duration-700 ease-out"
                     />
                   ) : (
                     <img
@@ -168,7 +178,7 @@ export default function Works({ lang }: WorksProps) {
                       id={`project-card-image-${project.id}`}
                       referrerPolicy="no-referrer"
                       onError={(e) => handleImageError(e, project.id)}
-                      className="w-full h-full object-cover grayscale brightness-90 group-hover:grayscale-0 group-hover:scale-105 group-hover:brightness-100 transition-all duration-700 ease-out"
+                      className="w-full h-full object-cover md:grayscale grayscale-0 brightness-90 group-hover:grayscale-0 group-hover:scale-105 group-hover:brightness-100 transition-all duration-700 ease-out"
                     />
                   )}
                   <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-65 pointer-events-none"></div>
@@ -179,7 +189,15 @@ export default function Works({ lang }: WorksProps) {
                       /{project.year}
                     </span>
                     <span className="font-mono text-[9px] bg-white text-black font-bold px-2.5 py-1">
-                      {project.category.toUpperCase()}
+                      {project.category === 'uiux' 
+                        ? '3D' 
+                        : project.category === 'code' 
+                          ? 'Dynamic poster' 
+                          : project.category === 'motion'
+                            ? 'Video'
+                            : project.category === 'brand'
+                              ? 'AE'
+                              : (project.category as string).toUpperCase()}
                     </span>
                   </div>
 
@@ -223,7 +241,15 @@ export default function Works({ lang }: WorksProps) {
                   <span className="font-mono text-xs text-white/30 pt-1">0{idx + 1}</span>
                   <div>
                     <span className="font-mono text-[9px] tracking-widest text-white/40 block mb-1">
-                      {project.category.toUpperCase()} // {project.year}
+                      {project.category === 'uiux' 
+                        ? '3D' 
+                        : project.category === 'code' 
+                          ? 'Dynamic poster' 
+                          : project.category === 'motion'
+                            ? 'Video'
+                            : project.category === 'brand'
+                              ? 'AE'
+                              : (project.category as string).toUpperCase()} // {project.year}
                     </span>
                     <h3 className="text-xl md:text-2xl font-sans text-white group-hover:translate-x-2 transition-transform duration-300">
                       {project.title[lang]}
@@ -294,7 +320,15 @@ export default function Works({ lang }: WorksProps) {
                 <div className="flex flex-wrap gap-4 items-center font-mono text-[10px] text-white/40 tracking-wider mb-6 border-b border-white/5 pb-4">
                   <span className="text-white border border-white/20 px-2 py-0.5 bg-white/5">{activeProject.year}</span>
                   <span>CLIENT: {activeProject.client.toUpperCase()}</span>
-                  <span>CATEGORY: {activeProject.category.toUpperCase()}</span>
+                  <span>CATEGORY: {activeProject.category === 'uiux' 
+                    ? '3D' 
+                    : activeProject.category === 'code' 
+                      ? 'Dynamic poster' 
+                      : activeProject.category === 'motion'
+                        ? 'Video'
+                        : activeProject.category === 'brand'
+                          ? 'AE'
+                          : (activeProject.category as string).toUpperCase()}</span>
                 </div>
 
                 <h1 className="text-3xl md:text-5xl font-sans text-white font-bold leading-tight uppercase tracking-tight">
@@ -311,13 +345,11 @@ export default function Works({ lang }: WorksProps) {
                     <>
                       <video
                         ref={inspectVideoRef}
-                        src={activeProject.videoUrl}
+                        src={`${activeProject.videoUrl}#t=0.01`}
                         id={`project-inspect-video-${activeProject.id}`}
                         autoPlay
                         loop
-                        muted
                         playsInline
-                        poster={activeProject.imageUrl}
                         preload="auto"
                         className="w-full h-auto block brightness-95 ring-0 outline-none"
                       />
@@ -347,7 +379,7 @@ export default function Works({ lang }: WorksProps) {
                       id={`project-inspect-image-${activeProject.id}`}
                       referrerPolicy="no-referrer"
                       onError={(e) => handleImageError(e, activeProject.id)}
-                      className="w-full h-auto block grayscale brightness-95"
+                      className="w-full h-auto block md:grayscale grayscale-0 brightness-95"
                     />
                   )}
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent pointer-events-none"></div>
