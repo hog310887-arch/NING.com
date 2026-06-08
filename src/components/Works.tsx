@@ -44,9 +44,15 @@ export default function Works({ lang }: WorksProps) {
       // Let the modal open and frame mount, then configure initial playback settings
       const timer = setTimeout(() => {
         if (inspectVideoRef.current) {
-          inspectVideoRef.current.muted = isMuted; // keep user selected mute status
-          inspectVideoRef.current.volume = volume; // keep user selected volume
-          inspectVideoRef.current.currentTime = 0;
+          try {
+            inspectVideoRef.current.muted = isMuted; // keep user selected mute status
+            inspectVideoRef.current.volume = volume; // keep user selected volume
+            if (inspectVideoRef.current.readyState >= 1) {
+              inspectVideoRef.current.currentTime = 0;
+            }
+          } catch (err) {
+            console.warn("Async init of video failed gracefully:", err);
+          }
         }
       }, 200);
       return () => clearTimeout(timer);
@@ -79,7 +85,11 @@ export default function Works({ lang }: WorksProps) {
     const time = parseFloat(e.target.value);
     setCurrentTime(time);
     if (inspectVideoRef.current) {
-      inspectVideoRef.current.currentTime = time;
+      try {
+        inspectVideoRef.current.currentTime = time;
+      } catch (err) {
+        console.warn("Setting video currentTime failed gracefully:", err);
+      }
     }
   };
 
@@ -261,17 +271,28 @@ export default function Works({ lang }: WorksProps) {
                 {/* Image panel with zoom shader effect */}
                 <div className="relative aspect-[16/10] overflow-hidden bg-neutral-900 border-b border-white/10">
                   {project.videoUrl ? (
-                    <video
-                      src={`${project.videoUrl}#t=0.1`}
-                      id={`project-card-video-${project.id}`}
-                      autoPlay
-                      loop
-                      muted
-                      playsInline
-                      poster={project.imageUrl}
-                      preload="auto"
-                      className="w-full h-full object-cover md:grayscale grayscale-0 brightness-90 group-hover:grayscale-0 group-hover:scale-105 group-hover:brightness-100 transition-all duration-700 ease-out"
-                    />
+                    <>
+                      {/* Video clip preview - Only autoplay/loop on desktop */}
+                      <video
+                        src={project.videoUrl}
+                        id={`project-card-video-${project.id}`}
+                        autoPlay
+                        loop
+                        muted
+                        playsInline
+                        preload="metadata"
+                        className="hidden md:block w-full h-full object-cover md:grayscale grayscale-0 brightness-90 group-hover:grayscale-0 group-hover:scale-105 group-hover:brightness-100 transition-all duration-700 ease-out"
+                      />
+                      {/* Reliable static high-contrast colorful scene cover image - rendered on mobile devices with full referrerPolicy capabilities */}
+                      <img
+                        src={project.imageUrl}
+                        alt={project.title[lang]}
+                        id={`project-card-image-fallback-${project.id}`}
+                        referrerPolicy="no-referrer"
+                        onError={(e) => handleImageError(e, project.id)}
+                        className="block md:hidden w-full h-full object-cover brightness-90 group-hover:scale-105 group-hover:brightness-100 transition-all duration-700 ease-out"
+                      />
+                    </>
                   ) : (
                     <img
                       src={project.imageUrl}
@@ -451,7 +472,7 @@ export default function Works({ lang }: WorksProps) {
                     <>
                       <video
                         ref={inspectVideoRef}
-                        src={`${activeProject.videoUrl}#t=0.1`}
+                        src={activeProject.videoUrl}
                         id={`project-inspect-video-${activeProject.id}`}
                         loop
                         playsInline
