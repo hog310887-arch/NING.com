@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Eye, X, ArrowUpRight, LayoutGrid, Layers, Play, Pause } from 'lucide-react';
+import { Eye, X, ArrowUpRight, LayoutGrid, Layers, Play, Pause, Volume2, VolumeX, Maximize2 } from 'lucide-react';
 import { Project, Language } from '../types';
 import { PROJECTS, TRANSLATIONS } from '../data';
 
@@ -15,26 +15,80 @@ export default function Works({ lang }: WorksProps) {
   const t = TRANSLATIONS[lang];
 
   const inspectVideoRef = useRef<HTMLVideoElement | null>(null);
+  const videoContainerRef = useRef<HTMLDivElement | null>(null);
   const [isInspectPlaying, setIsInspectPlaying] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
+  const [volume, setVolume] = useState<number>(1);
+  const [isMuted, setIsMuted] = useState<boolean>(false);
+  const [isFullscreen, setIsFullscreen] = useState<boolean>(false);
+  const [currentTime, setCurrentTime] = useState<number>(0);
+  const [duration, setDuration] = useState<number>(0);
+  const [hasPlayed, setHasPlayed] = useState<boolean>(false);
+
+  useEffect(() => {
+    const handleFullscreenChange = () => {
+      setIsFullscreen(!!document.fullscreenElement);
+    };
+    document.addEventListener('fullscreenchange', handleFullscreenChange);
+    return () => {
+      document.removeEventListener('fullscreenchange', handleFullscreenChange);
+    };
+  }, []);
 
   useEffect(() => {
     if (activeProject && activeProject.videoUrl) {
-      setIsInspectPlaying(true);
-      // Let the modal open and frame mount, then trigger playback with original sound
+      setIsInspectPlaying(false); // DO NOT AUTOPLAY, start as paused
+      setCurrentTime(0);
+      setDuration(0);
+      setHasPlayed(false); // Reset playback state for overlay cover
+      // Let the modal open and frame mount, then configure initial playback settings
       const timer = setTimeout(() => {
         if (inspectVideoRef.current) {
-          inspectVideoRef.current.muted = false; // ensure original sound status
-          inspectVideoRef.current.play().catch((err) => {
-            console.log("Audible autoplay paused or blocked by system gesture restrictions, user can click play:", err);
-            setIsInspectPlaying(false);
-          });
+          inspectVideoRef.current.muted = isMuted; // keep user selected mute status
+          inspectVideoRef.current.volume = volume; // keep user selected volume
+          inspectVideoRef.current.currentTime = 0;
         }
       }, 200);
       return () => clearTimeout(timer);
     } else {
       setIsInspectPlaying(false);
+      setHasPlayed(false);
     }
   }, [activeProject]);
+
+  useEffect(() => {
+    if (inspectVideoRef.current) {
+      inspectVideoRef.current.volume = volume;
+      inspectVideoRef.current.muted = isMuted;
+    }
+  }, [volume, isMuted, activeProject]);
+
+  const handleTimeUpdate = () => {
+    if (inspectVideoRef.current) {
+      setCurrentTime(inspectVideoRef.current.currentTime);
+    }
+  };
+
+  const handleLoadedMetadata = () => {
+    if (inspectVideoRef.current) {
+      setDuration(inspectVideoRef.current.duration);
+    }
+  };
+
+  const handleSeekChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const time = parseFloat(e.target.value);
+    setCurrentTime(time);
+    if (inspectVideoRef.current) {
+      inspectVideoRef.current.currentTime = time;
+    }
+  };
+
+  const formatTime = (time: number) => {
+    if (isNaN(time) || !isFinite(time)) return '00:00';
+    const mins = Math.floor(time / 60);
+    const secs = Math.floor(time % 60);
+    return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+  };
 
   const toggleInspectPlay = () => {
     if (inspectVideoRef.current) {
@@ -42,11 +96,57 @@ export default function Works({ lang }: WorksProps) {
         inspectVideoRef.current.pause();
         setIsInspectPlaying(false);
       } else {
-        inspectVideoRef.current.play().catch((err) => {
-          console.error("Video playback failed", err);
+        // Ensure volume and mute state are synced immediately before playing
+        inspectVideoRef.current.volume = volume;
+        inspectVideoRef.current.muted = isMuted;
+
+        inspectVideoRef.current.play().then(() => {
+          setIsInspectPlaying(true);
+          setHasPlayed(true);
+        }).catch((err) => {
+          console.error("Video playback failed, attempting muted recovery.", err);
+          // If strict mobile restrictions block unmuted autoplay/play on first interaction,
+          // recover instantly by muting, playing, and updating state to let the user unmute.
+          if (inspectVideoRef.current) {
+            inspectVideoRef.current.muted = true;
+            setIsMuted(true);
+            inspectVideoRef.current.play().then(() => {
+              setIsInspectPlaying(true);
+              setHasPlayed(true);
+            }).catch((mutedErr) => {
+              console.error("Fallback muted playback also failed", mutedErr);
+            });
+          }
         });
-        setIsInspectPlaying(true);
       }
+    }
+  };
+
+  const handleVolumeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const val = parseFloat(e.target.value);
+    setVolume(val);
+    if (val > 0) {
+      setIsMuted(false);
+    } else {
+      setIsMuted(true);
+    }
+  };
+
+  const toggleMute = () => {
+    setIsMuted(!isMuted);
+  };
+
+  const toggleFullscreen = () => {
+    if (!videoContainerRef.current) return;
+    if (!document.fullscreenElement) {
+      videoContainerRef.current.requestFullscreen().then(() => {
+        setIsFullscreen(true);
+      }).catch((err) => {
+        console.error("Error entering fullscreen", err);
+      });
+    } else {
+      document.exitFullscreen();
+      setIsFullscreen(false);
     }
   };
 
@@ -162,7 +262,7 @@ export default function Works({ lang }: WorksProps) {
                 <div className="relative aspect-[16/10] overflow-hidden bg-neutral-900 border-b border-white/10">
                   {project.videoUrl ? (
                     <video
-                      src={`${project.videoUrl}#t=0.01`}
+                      src={`${project.videoUrl}#t=0.1`}
                       id={`project-card-video-${project.id}`}
                       autoPlay
                       loop
@@ -339,38 +439,113 @@ export default function Works({ lang }: WorksProps) {
                   {activeProject.overview[lang]}
                 </p>
 
-                {/* Big high-contrast preview frame */}
-                <div className="mt-12 max-w-2xl bg-neutral-900 border border-white/10 overflow-hidden relative">
+                {/* Big high-contrast preview frame with custom controls */}
+                <div 
+                  ref={videoContainerRef}
+                  onMouseEnter={() => setIsHovered(true)}
+                  onMouseLeave={() => setIsHovered(false)}
+                  className={`mt-12 max-w-2xl bg-neutral-900 border border-white/10 overflow-hidden relative group/vcontainer transition-all duration-300 ${isFullscreen ? 'w-full h-full max-w-none flex items-center justify-center' : ''}`}
+                >
                   {activeProject.videoUrl ? (
                     <>
                       <video
                         ref={inspectVideoRef}
-                        src={`${activeProject.videoUrl}#t=0.01`}
+                        src={`${activeProject.videoUrl}#t=0.1`}
                         id={`project-inspect-video-${activeProject.id}`}
-                        autoPlay
                         loop
                         playsInline
+                        muted={isMuted}
                         preload="auto"
+                        onTimeUpdate={handleTimeUpdate}
+                        onLoadedMetadata={handleLoadedMetadata}
                         className="w-full h-auto block brightness-95 ring-0 outline-none"
                       />
-                      <button
-                        id="btn-inspect-video-play-toggle"
-                        onClick={toggleInspectPlay}
-                        className="absolute bottom-6 left-6 z-30 bg-black/80 border border-white/20 hover:border-white hover:bg-black text-white px-4 py-2.5 flex items-center justify-center gap-2.5 transition-all text-xs font-mono tracking-wider cursor-pointer rounded-sm"
-                        title={isInspectPlaying ? "Pause" : "Play"}
-                      >
-                        {isInspectPlaying ? (
-                          <>
-                            <Pause size={13} className="fill-white" />
-                            <span>{lang === 'zh' ? '暂停 // PAUSE' : 'PAUSE'}</span>
-                          </>
-                        ) : (
-                          <>
-                            <Play size={13} className="fill-white ml-0.5" />
-                            <span>{lang === 'zh' ? '播放 // PLAY' : 'PLAY'}</span>
-                          </>
-                        )}
-                      </button>
+                      
+                      {/* Play icon overlay on top of the native first-frame of the video - disappears once clicked */}
+                      {!hasPlayed && (
+                        <div 
+                          className="absolute inset-0 z-20 cursor-pointer flex items-center justify-center bg-black/10 hover:bg-black/25 transition-all duration-300"
+                          onClick={toggleInspectPlay}
+                        >
+                          <div className="w-16 h-16 rounded-full border border-white/20 bg-black/70 flex items-center justify-center text-white backdrop-blur-md scale-100 hover:scale-110 transition-transform duration-300">
+                            <Play size={24} className="fill-white ml-1" />
+                          </div>
+                        </div>
+                      )}
+                      
+                      {/* Integrated Control Overlay showing on Hover or when Paused */}
+                      <div className={`absolute bottom-0 inset-x-0 bg-gradient-to-t from-black/95 via-black/80 to-transparent p-4 flex flex-col gap-3.5 z-30 transition-all duration-300 ${isHovered || !isInspectPlaying ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2 pointer-events-none'}`}>
+                        {/* Timeline Slider with elapsed and total duration */}
+                        <div className="flex items-center gap-3 w-full">
+                          <span className="font-mono text-[9px] text-white/60 tracking-wider min-w-[32px] text-right">{formatTime(currentTime)}</span>
+                          <input
+                            type="range"
+                            min="0"
+                            max={duration || 100}
+                            step="0.05"
+                            value={currentTime}
+                            onChange={handleSeekChange}
+                            className="flex-1 h-1 bg-white/20 rounded-md appearance-none cursor-pointer accent-white hover:bg-white/40 transition-all"
+                            title="Timeline"
+                          />
+                          <span className="font-mono text-[9px] text-white/60 tracking-wider min-w-[32px] text-left">{formatTime(duration)}</span>
+                        </div>
+
+                        <div className="flex items-center justify-between w-full">
+                          {/* Play/Pause control */}
+                          <button
+                            id="btn-inspect-video-play-toggle"
+                            onClick={toggleInspectPlay}
+                            className="bg-white/10 border border-white/10 hover:border-white hover:bg-white hover:text-black text-white px-3 py-1.5 flex items-center justify-center gap-1.5 transition-all text-xs font-mono tracking-wider cursor-pointer rounded-sm"
+                            title={isInspectPlaying ? "Pause" : "Play"}
+                          >
+                            {isInspectPlaying ? (
+                              <>
+                                <Pause size={12} className="fill-current" />
+                                <span>{lang === 'zh' ? '暂停 // PAUSE' : 'PAUSE'}</span>
+                              </>
+                            ) : (
+                              <>
+                                <Play size={12} className="fill-current ml-0.5" />
+                                <span>{lang === 'zh' ? '播放 // PLAY' : 'PLAY'}</span>
+                              </>
+                            )}
+                          </button>
+
+                          {/* Interactive utilities (Volume & Fullscreen) */}
+                          <div className="flex items-center gap-4">
+                            {/* Volume Adjust Slider */}
+                            <div className="flex items-center gap-2">
+                              <button
+                                onClick={toggleMute}
+                                className="text-white/80 hover:text-white p-1 hover:bg-white/10 rounded transition-all cursor-pointer"
+                                title={isMuted ? "Unmute" : "Mute"}
+                              >
+                                {isMuted || volume === 0 ? <VolumeX size={15} /> : <Volume2 size={15} />}
+                              </button>
+                              <input
+                                type="range"
+                                min="0"
+                                max="1"
+                                step="0.05"
+                                value={isMuted ? 0 : volume}
+                                onChange={handleVolumeChange}
+                                className="w-16 md:w-24 h-1 bg-white/20 rounded-lg appearance-none cursor-pointer accent-white transition-all hover:bg-white/40"
+                                title="Volume"
+                              />
+                            </div>
+
+                            {/* Fullscreen Button */}
+                            <button
+                              onClick={toggleFullscreen}
+                              className="text-white/80 hover:text-white p-1 hover:bg-white/10 rounded transition-all cursor-pointer flex items-center justify-center"
+                              title={isFullscreen ? "Exit Fullscreen" : "Fullscreen"}
+                            >
+                              <Maximize2 size={15} />
+                            </button>
+                          </div>
+                        </div>
+                      </div>
                     </>
                   ) : (
                     <img
@@ -382,7 +557,9 @@ export default function Works({ lang }: WorksProps) {
                       className="w-full h-auto block md:grayscale grayscale-0 brightness-95"
                     />
                   )}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent pointer-events-none"></div>
+                  {(!activeProject.videoUrl) && (
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent pointer-events-none"></div>
+                  )}
                 </div>
 
               </div>
