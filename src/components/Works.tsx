@@ -18,7 +18,11 @@ export default function Works({ lang }: WorksProps) {
   const [isInspectPlaying, setIsInspectPlaying] = useState(false);
 
   useEffect(() => {
-    setIsInspectPlaying(false);
+    if (activeProject && activeProject.videoUrl) {
+      setIsInspectPlaying(true);
+    } else {
+      setIsInspectPlaying(false);
+    }
   }, [activeProject]);
 
   const toggleInspectPlay = () => {
@@ -153,6 +157,8 @@ export default function Works({ lang }: WorksProps) {
                       loop
                       muted
                       playsInline
+                      poster={project.imageUrl}
+                      preload="auto"
                       className="w-full h-full object-cover grayscale brightness-90 group-hover:grayscale-0 group-hover:scale-105 group-hover:brightness-100 transition-all duration-700 ease-out"
                     />
                   ) : (
@@ -307,8 +313,12 @@ export default function Works({ lang }: WorksProps) {
                         ref={inspectVideoRef}
                         src={activeProject.videoUrl}
                         id={`project-inspect-video-${activeProject.id}`}
+                        autoPlay
                         loop
+                        muted
                         playsInline
+                        poster={activeProject.imageUrl}
+                        preload="auto"
                         className="w-full h-auto block brightness-95 ring-0 outline-none"
                       />
                       <button
