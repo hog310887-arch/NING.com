@@ -268,6 +268,7 @@ export default function Works({ lang }: WorksProps) {
                       loop
                       muted
                       playsInline
+                      poster={project.imageUrl}
                       preload="auto"
                       className="w-full h-full object-cover md:grayscale grayscale-0 brightness-90 group-hover:grayscale-0 group-hover:scale-105 group-hover:brightness-100 transition-all duration-700 ease-out"
                     />
@@ -461,14 +462,23 @@ export default function Works({ lang }: WorksProps) {
                         className="w-full h-auto block brightness-95 ring-0 outline-none"
                       />
                       
-                      {/* Play icon overlay on top of the native first-frame of the video - disappears once clicked */}
+                      {/* Colorful static image cover representation - guarantees instant high-contrast rendering on any mobile browser */}
                       {!hasPlayed && (
                         <div 
-                          className="absolute inset-0 z-20 cursor-pointer flex items-center justify-center bg-black/10 hover:bg-black/25 transition-all duration-300"
+                          className="absolute inset-0 z-20 cursor-pointer flex items-center justify-center bg-[#050505]"
                           onClick={toggleInspectPlay}
                         >
-                          <div className="w-16 h-16 rounded-full border border-white/20 bg-black/70 flex items-center justify-center text-white backdrop-blur-md scale-100 hover:scale-110 transition-transform duration-300">
-                            <Play size={24} className="fill-white ml-1" />
+                          <img
+                            src={activeProject.imageUrl}
+                            alt={activeProject.title[lang]}
+                            referrerPolicy="no-referrer"
+                            onError={(e) => handleImageError(e, activeProject.id)}
+                            className="w-full h-full object-cover transition-opacity duration-300 select-none pointer-events-none"
+                          />
+                          <div className="absolute inset-0 bg-black/40 flex items-center justify-center hover:bg-black/20 transition-all duration-300">
+                            <div className="w-16 h-16 rounded-full border border-white/20 bg-black/70 flex items-center justify-center text-white backdrop-blur-md scale-100 hover:scale-110 transition-transform duration-300 shadow-2xl">
+                              <Play size={24} className="fill-white ml-1" />
+                            </div>
                           </div>
                         </div>
                       )}
