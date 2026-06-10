@@ -296,6 +296,7 @@ export default function Works({ lang }: WorksProps) {
                       muted
                       playsInline
                       preload="metadata"
+                      referrerPolicy="no-referrer"
                       className="w-full h-full object-cover md:grayscale grayscale-0 brightness-90 group-hover:grayscale-0 group-hover:scale-105 group-hover:brightness-100 transition-all duration-700 ease-out"
                     />
                   ) : (
@@ -484,6 +485,7 @@ export default function Works({ lang }: WorksProps) {
                           playsInline
                           muted={isMuted}
                           preload="auto"
+                          referrerPolicy="no-referrer"
                           onTimeUpdate={handleTimeUpdate}
                           onLoadedMetadata={handleLoadedMetadata}
                           onClick={toggleInspectPlay}
